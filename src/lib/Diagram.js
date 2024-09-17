@@ -39,7 +39,7 @@ class Diagram {
    * @returns {object} - The data objects.
    */
   getDataObjects () {
-    return this.#createData.getDataObjects()
+    return this.#createData.getData()
   }
 
   /**

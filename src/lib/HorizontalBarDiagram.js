@@ -12,18 +12,14 @@ import { Interactivity } from './Interactivity.js'
  * A class representing a bar diagram.
  */
 class HorizontalBarDiagram extends BarDiagram {
-  #data
-  #diagram
-  #dataObjects
-  /**
-   * Creates an instance of BarDiagram.
-   *
-   * @param {object} data - The data that will be used to render the diagram.
-   */
-  constructor (data) {
-    super(data)
-    this.#dataObjects = super.getData()
-  }
+  // /**
+  //  * Creates an instance of BarDiagram.
+  //  *
+  //  * @param {object} data - The data that will be used to render the diagram.
+  //  */
+  // constructor (data) {
+  //   super(data)
+  // }
 
   /**
    * Renders the diagram.
@@ -41,9 +37,9 @@ class HorizontalBarDiagram extends BarDiagram {
     super.createAxels(svg, svgWidth, svgHeight)
 
     // Loop through the data and render the bars
-    for (const value of super.getData()) {
-      const barHeigth = (value / maxDataValue) * (svgHeight - 50)
-      const x = super.getData().indexOf(value) * (barWidth + barSpacing) + 50
+    for (const object of super.getDataObjects()) {
+      const barHeigth = (object.data / maxDataValue) * (svgHeight - 50)
+      const x = super.getData().indexOf(object.data) * (barWidth + barSpacing) + 50
       const y = svgHeight - barHeigth - 30
 
       // Add bars to the diagram
@@ -52,11 +48,13 @@ class HorizontalBarDiagram extends BarDiagram {
       rect.setAttribute('y', y)
       rect.setAttribute('width', barWidth)
       rect.setAttribute('height', barHeigth)
-      rect.setAttribute('fill', 'blue')
+      rect.setAttribute('fill', object.color)
 
       // add an if statement if the user want to add interactivity to the bars
-      const interactive = new Interactivity(rect)
-      interactive.makeInteractive()
+      if (object.interactivity) {
+        const interactive = new Interactivity(rect)
+        interactive.makeInteractive(object.interactivity)
+      }
 
       svg.appendChild(rect)
 
@@ -67,7 +65,7 @@ class HorizontalBarDiagram extends BarDiagram {
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('transform', `rotate(-45, ${x + barWidth / 2}, ${svgHeight - 10})`)
-      text.textContent = value
+      text.textContent = object.label
 
       svg.appendChild(text)
     }

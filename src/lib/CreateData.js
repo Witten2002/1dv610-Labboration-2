@@ -12,6 +12,8 @@ class CreateData {
   #dataObjects
   #data
   #labels
+  #color
+  #interactivity
   /**
    * Creates an instance of CreateData. This will create and validate the data.
    *
@@ -21,8 +23,36 @@ class CreateData {
     this.#dataObjects = []
     this.#data = []
     this.#labels = []
+
+    /* --------- VALIDATE --------- */
     this.#setData(config.data)
     this.#setLabels(config.labels)
+    this.#setColor(config.color)
+    this.#setInteractivity(config.interactivity ? config.interactivity : false)
+    /* ---------------------------- */
+
+    // This must be done last
+    this.#concatinateObjects()
+  }
+
+  /**
+   * Sets the interactivity.
+   *
+   * @param {boolean} interactivity - If the user wants to add interactivity to the diagram.
+   */
+  #setInteractivity (interactivity) {
+    if (interactivity) {
+      this.#interactivity = {
+        hover: {
+          // check if the user want hover effect on the bars
+          show: interactivity.hover ? interactivity.hover : false
+        },
+        infoBoxWhenHover: {
+          // check if the user want to add a little information about the bars when the mouse is over them
+          show: interactivity.infoBoxWhenHover ? interactivity.infoBoxWhenHover : false
+        }
+      }
+    }
   }
 
   /**
@@ -38,6 +68,22 @@ class CreateData {
       } else {
         this.#data.push(value)
       }
+    }
+  }
+
+  /**
+   * Sets the color. The default color is blue.
+   *
+   * @param {string} color - The color that will be used to render the diagram.
+   */
+  #setColor (color = 'blue') {
+    const s = new Option().style
+    s.color = color
+
+    if (s.color === '') {
+      throw new Error('The color must be a string')
+    } else {
+      this.#color = color
     }
   }
 
@@ -66,17 +112,17 @@ class CreateData {
   /**
    * Concatinates the data and labels.
    *
-   * @returns {object} - The data and labels.
    */
   #concatinateObjects () {
     for (let i = 0; i < this.#data.length; i++) {
       const bar = {
         data: this.#data[i],
-        label: this.#labels[i]
+        label: this.#labels[i],
+        color: this.#color,
+        interactivity: this.#interactivity
       }
       this.#dataObjects.push(bar)
     }
-    return this.#dataObjects
   }
 
   /**
@@ -85,7 +131,7 @@ class CreateData {
    * @returns {object} - The data.
    */
   getData () {
-    return this.#concatinateObjects()
+    return this.#dataObjects
   }
 }
 
