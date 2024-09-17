@@ -9,6 +9,8 @@
  * A class representing a interactivity.
  */
 class Interactivity {
+  /* ----- Private properties ----- */
+  // the rect element
   #rect
   #originalColor
   #originalHeight
@@ -18,6 +20,7 @@ class Interactivity {
   #infoBox
   #title
   #value
+  /* ----------------------------- */
 
   /**
    * Creates an instance of Interactivity.
@@ -41,15 +44,21 @@ class Interactivity {
   /**
    * Makes the bars interactive.
    *
-   * @param {object} settings - The settings for the interactivity.
+   * @param {object} dataObject - The settings for the interactivity.
+   * @param {number} barHeigth - The height of the bars.
+   * @param {number} finalY - The final y position of the bars.
    */
-  makeInteractive (settings) {
-    if (settings.hover.show) {
-      this.#reactToMouseOver(settings.hover.show.color, settings.hover.show.expand)
+  makeInteractive (dataObject, barHeigth, finalY) {
+    if (dataObject.interactivity.hover.show) {
+      this.#reactToMouseOver(dataObject.interactivity.hover.show.color, dataObject.interactivity.hover.show.expand)
     }
 
-    if (settings.infoBoxWhenHover.show) {
-      this.#showInfoBoxWhenHover()
+    if (dataObject.interactivity.infoBoxWhenHover.show) {
+      this.#showInfoBoxWhenHover(dataObject.label, dataObject.data)
+    }
+
+    if (dataObject.interactivity.animate) {
+      this.#animateBar(this.#rect, barHeigth, finalY)
     }
     // ask if if the user want to make tho change color when the mouse is over the bars or if the user want to add a little information about the bars
   }
@@ -91,9 +100,10 @@ class Interactivity {
   /**
    * Shows an info box when the mouse is over the bars.
    *
-   * @param {object} settings - The settings for the info box.
+   * @param {object} title - The settings for the info box.
+   * @param {object} value - The settings for the info box.
    */
-  #showInfoBoxWhenHover (settings) {
+  #showInfoBoxWhenHover (title, value) {
     // show the info box when the mouse is over the bars
     this.#rect.addEventListener('mouseover', (event) => {
       this.#infoBox.style.display = 'flex'
@@ -101,8 +111,8 @@ class Interactivity {
         this.#infoBox.style.opacity = '1'
         this.#infoBox.style.transform = 'scale(1)'
       }, 1000)
-      this.#title.textContent = 'Januari'
-      this.#value.textContent = '130'
+      this.#title.textContent = title
+      this.#value.textContent = value
     })
 
     // move the info box with the mouse
@@ -121,12 +131,8 @@ class Interactivity {
 
   /**
    * Creates the info box.
-   *
-   * @param {string} backgroundColor - The background color of the info box.
-   * @param {string} textColor - The text color of the info box.
-   * @param {string} textAnchor - The text anchor of the info box
    */
-  #createInfoBox (backgroundColor = 'white', textColor = 'black', textAnchor = 'middle') {
+  #createInfoBox () {
     this.#infoBox = document.createElement('div')
 
     /* ----- Create the elements for the info box ----- */
@@ -161,6 +167,39 @@ class Interactivity {
     /* ------------------------------ */
 
     document.body.appendChild(this.#infoBox)
+  }
+
+  /**
+   * Animates the bars.
+   *
+   * @param {object} rect - The bar that will be animated.
+   * @param {number} finalHeight - The final height of the bar.
+   * @param {number} finalY - The final y position of the bar.
+   */
+  #animateBar (rect, finalHeight, finalY) {
+    let currentHeight = 0
+    let currentY = parseInt(rect.getAttribute('y')) + finalHeight
+
+    const SPEED = 100
+    const increment = finalHeight / SPEED
+    const yIncrement = finalHeight / SPEED
+
+    /**
+     * Animates the bars.
+     */
+    const animate = () => {
+      if (currentHeight < finalHeight) {
+        currentHeight += increment
+        currentY -= yIncrement
+        rect.setAttribute('height', currentHeight)
+        rect.setAttribute('y', currentY)
+        requestAnimationFrame(animate)
+      } else {
+        rect.setAttribute('height', finalHeight)
+        rect.setAttribute('y', finalY)
+      }
+    }
+    requestAnimationFrame(animate)
   }
 }
 

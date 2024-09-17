@@ -50,7 +50,8 @@ class CreateData {
         infoBoxWhenHover: {
           // check if the user want to add a little information about the bars when the mouse is over them
           show: interactivity.infoBoxWhenHover ? interactivity.infoBoxWhenHover : false
-        }
+        },
+        animate: interactivity.animate ? interactivity.animate : false
       }
     }
   }

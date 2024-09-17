@@ -28,8 +28,8 @@ class HorizontalBarDiagram extends BarDiagram {
    */
   render () {
     const svg = document.querySelector('#svgDiagram')
-    const barWidth = 40
-    const barSpacing = 10
+    const barWidth = 60 // make this dynamic prop add this to the BarDiagram class or Diagram class. EN TIONEDEL UTAV BREDDEN
+    const barSpacing = 10 // make this dynamic. EN TIONEDEL UTAV BARWIDTH
     const svgHeight = svg.getAttribute('height')
     const svgWidth = svg.getAttribute('width')
     const maxDataValue = super.findMaxValue()
@@ -53,7 +53,7 @@ class HorizontalBarDiagram extends BarDiagram {
       // add an if statement if the user want to add interactivity to the bars
       if (object.interactivity) {
         const interactive = new Interactivity(rect)
-        interactive.makeInteractive(object.interactivity)
+        interactive.makeInteractive(object, barHeigth, y)
       }
 
       svg.appendChild(rect)
