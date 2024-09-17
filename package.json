@@ -1,0 +1,28 @@
+{
+  "name": "1dv610-labboration-2",
+  "version": "1.1.1",
+  "description": "1DV610 - workshop 1",
+  "type": "module",
+  "browser": "src/app.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "start": "node src/app.js",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0",
+    "test": "npx --node-options=--experimental-vm-modules jest || exit 0",
+    "test:only": "npx --node-options=--experimental-vm-modules jest -t"
+  },
+  "contributors": [
+    "Ludwig Wittenberg <lw223cq@student.lnu.se>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.10",
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+  }
+}
