@@ -20,7 +20,7 @@ class BarDiagram extends Diagram {
    */
   constructor (data) {
     super(data)
-    this.#dataObjects = super.getData()
+    this.#dataObjects = super.getDataObject()
   }
 
   /**
@@ -34,13 +34,27 @@ class BarDiagram extends Diagram {
   }
 
   /**
+   * Creates an array with the values.
+   *
+   * @param {object} visualData - The visual data.
+   * @returns {Array} - The values.
+   */
+  getBarValues (visualData) {
+    const data = []
+    for (const value of visualData) {
+      data.push(value.data)
+    }
+    return data
+  }
+
+  /**
    * Returns the data.
    *
    * @returns {object} - The data.
    */
   findMaxValue () {
-    // console.log(super.getData())
-    const maxValue = Math.max(...super.getData())
+    const values = this.getBarValues(super.getVisualData())
+    const maxValue = Math.max(...values)
     const rowValue = (this.#roundUpToNearestTen(maxValue) / 5)
     this.#graphValues = (this.#roundUpToNearestTen(rowValue) * 5)
 

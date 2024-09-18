@@ -12,14 +12,18 @@ import { Interactivity } from './Interactivity.js'
  * A class representing a bar diagram.
  */
 class HorizontalBarDiagram extends BarDiagram {
-  // /**
-  //  * Creates an instance of BarDiagram.
-  //  *
-  //  * @param {object} data - The data that will be used to render the diagram.
-  //  */
-  // constructor (data) {
-  //   super(data)
-  // }
+  #dataObject
+  #barValues
+  /**
+   * Creates an instance of BarDiagram.
+   *
+   * @param {object} data - The data that will be used to render the diagram.
+   */
+  constructor (data) {
+    super(data)
+    this.#dataObject = super.getDataObject()
+    this.#barValues = super.getBarValues(super.getVisualData())
+  }
 
   /**
    * Renders the diagram.
@@ -27,7 +31,7 @@ class HorizontalBarDiagram extends BarDiagram {
    * @override
    */
   render () {
-    const svg = document.querySelector('#svgDiagram')
+    const svg = document.querySelector(this.#dataObject.config.elementId) // elementId here
     const barWidth = 60 // make this dynamic prop add this to the BarDiagram class or Diagram class. EN TIONEDEL UTAV BREDDEN
     const barSpacing = 10 // make this dynamic. EN TIONEDEL UTAV BARWIDTH
     const svgHeight = svg.getAttribute('height')
@@ -37,9 +41,11 @@ class HorizontalBarDiagram extends BarDiagram {
     super.createAxels(svg, svgWidth, svgHeight)
 
     // Loop through the data and render the bars
-    for (const object of super.getDataObjects()) {
-      const barHeigth = (object.data / maxDataValue) * (svgHeight - 50)
-      const x = super.getData().indexOf(object.data) * (barWidth + barSpacing) + 50
+    const visualData = super.getVisualData()
+    for (const data of visualData) {
+      const index = this.#barValues.indexOf(data.data)
+      const barHeigth = (data.data / maxDataValue) * (svgHeight - 50)
+      const x = index * (barWidth + barSpacing) + 50
       const y = svgHeight - barHeigth - 30
 
       // Add bars to the diagram
@@ -48,12 +54,14 @@ class HorizontalBarDiagram extends BarDiagram {
       rect.setAttribute('y', y)
       rect.setAttribute('width', barWidth)
       rect.setAttribute('height', barHeigth)
-      rect.setAttribute('fill', object.color)
+      rect.setAttribute('fill', data.color)
+
+      console.log(data)
 
       // add an if statement if the user want to add interactivity to the bars
-      if (object.interactivity) {
+      if (this.#dataObject.config.interactivity) {
         const interactive = new Interactivity(rect)
-        interactive.makeInteractive(object, barHeigth, y)
+        interactive.makeInteractive(this.#dataObject, barHeigth, y, data)
       }
 
       svg.appendChild(rect)
@@ -65,7 +73,7 @@ class HorizontalBarDiagram extends BarDiagram {
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('transform', `rotate(-45, ${x + barWidth / 2}, ${svgHeight - 10})`)
-      text.textContent = object.label
+      text.textContent = data.label
 
       svg.appendChild(text)
     }

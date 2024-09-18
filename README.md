@@ -21,7 +21,9 @@ const diagramFactory = new DiagramFactory({
         expand: true
       },
       infoBoxWhenHover: true,
-      animate: true
+      animate: {
+        speed: 60
+      }
     }
   })
 

@@ -4,12 +4,12 @@
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
  */
-import { CreateData } from './CreateData.js'
+import { DataObject } from './DataObject.js'
 /**
  * A class representing a diagram.
  */
 class Diagram {
-  #createData
+  #dataObject
   /**
    * Creates an instance of Diagram.
    *
@@ -17,7 +17,7 @@ class Diagram {
    */
   constructor (config) {
     // this.#setData(config.data) // validate data or create a validation class that returns an array with concateted the data and labels and then check if the data is valid or not and then return the data in form of an array with objects.
-    this.#createData = new CreateData(config)
+    this.#dataObject = new DataObject(config)
   }
 
   /**
@@ -25,10 +25,12 @@ class Diagram {
    *
    * @returns {object} - The data.
    */
-  getData () {
+  getVisualData () {
     const data = []
-    for (const value of this.#createData.getData()) {
-      data.push(value.data)
+    const visualData = this.#dataObject.getVisualData()
+
+    for (const value of visualData) {
+      data.push(value)
     }
     return data
   }
@@ -38,8 +40,8 @@ class Diagram {
    *
    * @returns {object} - The data objects.
    */
-  getDataObjects () {
-    return this.#createData.getData()
+  getDataObject () {
+    return this.#dataObject.getDataObject()
   }
 
   /**

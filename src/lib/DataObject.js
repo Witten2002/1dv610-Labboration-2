@@ -8,31 +8,51 @@
 /**
  * This creates the data that will be used to render the diagram.
  */
-class CreateData {
-  #dataObjects
+class DataObject {
+  #dataObject
   #data
   #labels
   #color
   #interactivity
+  #elementId
+  #animation
+  #visualData
   /**
    * Creates an instance of CreateData. This will create and validate the data.
    *
    * @param {object} config - The data that will be used to render the diagram.
    */
   constructor (config) {
-    this.#dataObjects = []
     this.#data = []
     this.#labels = []
+    this.#visualData = []
 
     /* --------- VALIDATE --------- */
     this.#setData(config.data)
     this.#setLabels(config.labels)
     this.#setColor(config.color)
     this.#setInteractivity(config.interactivity ? config.interactivity : false)
+    this.#setElementId(config.elementId)
+    this.#setAnimation(config.animation)
     /* ---------------------------- */
 
     // This must be done last
     this.#concatinateObjects()
+  }
+
+  /**
+   * Sets the animation.
+   *
+   * @param {object} animation - The animation that will be used to render the diagram.
+   */
+  #setAnimation (animation) {
+    if (!animation) {
+      this.#animation = false
+    } else {
+      this.#animation = {
+        speed: animation.speed
+      }
+    }
   }
 
   /**
@@ -50,8 +70,7 @@ class CreateData {
         infoBoxWhenHover: {
           // check if the user want to add a little information about the bars when the mouse is over them
           show: interactivity.infoBoxWhenHover ? interactivity.infoBoxWhenHover : false
-        },
-        animate: interactivity.animate ? interactivity.animate : false
+        }
       }
     }
   }
@@ -73,11 +92,24 @@ class CreateData {
   }
 
   /**
+   * Sets the element id.
+   *
+   * @param {string} elementId - The element id that will be used to render the diagram.
+   */
+  #setElementId (elementId) {
+    if (typeof elementId !== 'string' && !elementId.startsWith('#')) {
+      throw new Error('The elementId must be a string')
+    } else {
+      this.#elementId = elementId
+    }
+  }
+
+  /**
    * Sets the color. The default color is blue.
    *
    * @param {string} color - The color that will be used to render the diagram.
    */
-  #setColor (color = 'blue') {
+  #setColor (color = 'blue') { // probably need to move this
     const s = new Option().style
     s.color = color
 
@@ -119,21 +151,45 @@ class CreateData {
       const bar = {
         data: this.#data[i],
         label: this.#labels[i],
-        color: this.#color,
-        interactivity: this.#interactivity
+        color: this.#color // dont know where to put this right now. multiple colors or one color for all bars
       }
-      this.#dataObjects.push(bar)
+      this.#visualData.push(bar)
+    }
+
+    this.#createObject()
+  }
+
+  /**
+   * Creates the object.
+   */
+  #createObject () {
+    this.#dataObject = {
+      config: {
+        elementId: this.#elementId,
+        interactivity: this.#interactivity,
+        animation: this.#animation
+      },
+      visualData: this.#visualData
     }
   }
 
   /**
-   * Returns the data.
+   * Returns the visual data.
    *
    * @returns {object} - The data.
    */
-  getData () {
-    return this.#dataObjects
+  getVisualData () {
+    return this.#visualData
+  }
+
+  /**
+   * Returns the data object.
+   *
+   * @returns {object} - The data.
+   */
+  getDataObject () {
+    return this.#dataObject
   }
 }
 
-export { CreateData }
+export { DataObject }

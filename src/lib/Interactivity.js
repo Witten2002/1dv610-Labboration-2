@@ -47,18 +47,20 @@ class Interactivity {
    * @param {object} dataObject - The settings for the interactivity.
    * @param {number} barHeigth - The height of the bars.
    * @param {number} finalY - The final y position of the bars.
+   * @param {object} visualData - The index of the bars.
    */
-  makeInteractive (dataObject, barHeigth, finalY) {
-    if (dataObject.interactivity.hover.show) {
-      this.#reactToMouseOver(dataObject.interactivity.hover.show.color, dataObject.interactivity.hover.show.expand)
+  makeInteractive (dataObject, barHeigth, finalY, visualData) {
+    console.log(dataObject)
+    if (dataObject.config.interactivity.hover.show) {
+      this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
 
-    if (dataObject.interactivity.infoBoxWhenHover.show) {
-      this.#showInfoBoxWhenHover(dataObject.label, dataObject.data)
+    if (dataObject.config.interactivity.infoBoxWhenHover.show) {
+      this.#showInfoBoxWhenHover(visualData.label, visualData.data)
     }
 
-    if (dataObject.interactivity.animate) {
-      this.#animateBar(this.#rect, barHeigth, finalY)
+    if (dataObject.config.interactivity.animate) { // move this to a new class
+      this.#animateBar(this.#rect, barHeigth, finalY, dataObject.config.interactivity.animate.speed)
     }
     // ask if if the user want to make tho change color when the mouse is over the bars or if the user want to add a little information about the bars
   }
@@ -70,11 +72,12 @@ class Interactivity {
    * @param {boolean} expand - If the bars should be expaned when the mouse is over them.
    */
   #reactToMouseOver (color = 'red', expand = false) {
+    console.log('reactToMouseOver')
     // interact with the bars when the mouse is over them
     this.#rect.addEventListener('mouseover', (event) => {
+      console.log('mouseover')
       event.target.setAttribute('fill', color)
       event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
-      console.log(expand)
       if (expand) {
         // expand the bars when the mouse is over them and animate the change
         event.target.setAttribute('width', this.#originalWidth + 10)
@@ -175,12 +178,13 @@ class Interactivity {
    * @param {object} rect - The bar that will be animated.
    * @param {number} finalHeight - The final height of the bar.
    * @param {number} finalY - The final y position of the bar.
+   * @param {number} speed - The speed of the animation.
    */
-  #animateBar (rect, finalHeight, finalY) {
+  #animateBar (rect, finalHeight, finalY, speed) { // eventuellt gör denna abstrakt
     let currentHeight = 0
     let currentY = parseInt(rect.getAttribute('y')) + finalHeight
 
-    const SPEED = 100
+    const SPEED = speed
     const increment = finalHeight / SPEED
     const yIncrement = finalHeight / SPEED
 
