@@ -10,7 +10,7 @@ import { Diagram } from './Diagram.js'
 /**
  * A class representing a bar diagram.
  */
-class BarDiagram extends Diagram {
+class BarDiagram extends Diagram { // change name to XYDiagram or remove this
   #graphValues
   #dataObjects
   /**
@@ -71,8 +71,6 @@ class BarDiagram extends Diagram {
   createAxels (svg, svgWidth, svgHeight) {
     const axisPadding = 50
 
-    // const maxValue = this.#roundUpToNearestTen(this.findMaxValue())
-
     const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     xAxis.setAttribute('x1', axisPadding - 10)
     xAxis.setAttribute('y1', svgHeight - axisPadding + 20)
@@ -97,13 +95,14 @@ class BarDiagram extends Diagram {
       label.setAttribute('x', axisPadding - 15)
       label.setAttribute('y', yPos + 25)
       label.setAttribute('text-anchor', 'end')
+      label.setAttribute('font-size', this.#dataObjects.config.fonts.yAxel)
       label.textContent = Math.round((this.#graphValues / NUM_OF_LINES) * i)
       svg.appendChild(label)
 
       const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
       line.setAttribute('x1', axisPadding - 10)
       line.setAttribute('y1', yPos + 20)
-      line.setAttribute('x2', svgWidth - axisPadding - 10)
+      line.setAttribute('x2', svgWidth) // line length
       line.setAttribute('y2', yPos + 20)
       line.setAttribute('stroke', 'grey')
       svg.appendChild(line)

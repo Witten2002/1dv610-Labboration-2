@@ -49,8 +49,7 @@ class Interactivity {
    * @param {number} finalY - The final y position of the bars.
    * @param {object} visualData - The index of the bars.
    */
-  makeInteractive (dataObject, barHeigth, finalY, visualData) {
-    console.log(dataObject)
+  makeInteractive (dataObject, barHeigth, finalY, visualData) { // change the name and maybe create a object where the data is stored to minimize the number of arguments
     if (dataObject.config.interactivity.hover.show) {
       this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
@@ -72,10 +71,8 @@ class Interactivity {
    * @param {boolean} expand - If the bars should be expaned when the mouse is over them.
    */
   #reactToMouseOver (color = 'red', expand = false) {
-    console.log('reactToMouseOver')
     // interact with the bars when the mouse is over them
     this.#rect.addEventListener('mouseover', (event) => {
-      console.log('mouseover')
       event.target.setAttribute('fill', color)
       event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
       if (expand) {

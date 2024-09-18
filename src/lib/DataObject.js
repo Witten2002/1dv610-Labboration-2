@@ -17,6 +17,10 @@ class DataObject {
   #elementId
   #animation
   #visualData
+  #barWidth
+  #svg
+  #yAxelFontSize
+  #xAxelFontSize
   /**
    * Creates an instance of CreateData. This will create and validate the data.
    *
@@ -31,13 +35,71 @@ class DataObject {
     this.#setData(config.data)
     this.#setLabels(config.labels)
     this.#setColor(config.color)
-    this.#setInteractivity(config.interactivity ? config.interactivity : false)
+    this.#setInteractivity(config.interactivity)
     this.#setElementId(config.elementId)
     this.#setAnimation(config.animation)
+    this.#setSvg(config.elementId)
+    this.#setBarWidth(this.#svg.getAttribute('width'))
+    this.#setXAxelFontSize(this.#svg.getAttribute('width'))
+    this.#setYAxelFontSize(this.#svg.getAttribute('height'))
     /* ---------------------------- */
 
     // This must be done last
     this.#concatinateObjects()
+  }
+
+  /**
+   * Sets the x axel font size.
+   *
+   * @param {number} width - The width of the svg element.
+   */
+  #setXAxelFontSize (width) {
+    if (width < 200) {
+      this.#xAxelFontSize = 8
+    } else if (width < 600) {
+      this.#xAxelFontSize = 14
+    } else {
+      this.#xAxelFontSize = 18
+    }
+  }
+
+  /**
+   * Sets the y axel font size.
+   *
+   * @param {number} height - The height of the svg element.
+   */
+  #setYAxelFontSize (height) {
+    if (height < 200) {
+      this.#yAxelFontSize = 8
+    } else if (height < 600) {
+      this.#yAxelFontSize = 14
+    } else {
+      this.#yAxelFontSize = 18
+    }
+  }
+
+  /**
+   * Sets the svg element.
+   *
+   * @param {string} elementId - The id of the svg element.
+   */
+  #setSvg (elementId) {
+    this.#svg = document.querySelector(elementId)
+
+    if (!this.#setSvg) {
+      throw new Error('The elementId does not exist')
+    }
+  }
+
+  /**
+   * Sets the bar width. **Magical number** 50 is the padding on the left side of the svg element.
+   *
+   * @param {number} width - The width of the svg element.
+   */
+  #setBarWidth (width) {
+    const dataLength = this.#data.length
+    const barSpacing = 10 * dataLength
+    this.#barWidth = ((width - barSpacing - 50) / (dataLength))
   }
 
   /**
@@ -65,7 +127,7 @@ class DataObject {
       this.#interactivity = {
         hover: {
           // check if the user want hover effect on the bars
-          show: interactivity.hover ? interactivity.hover : false
+          show: interactivity.changeColor ? interactivity.changeColor : false
         },
         infoBoxWhenHover: {
           // check if the user want to add a little information about the bars when the mouse is over them
@@ -109,8 +171,8 @@ class DataObject {
    *
    * @param {string} color - The color that will be used to render the diagram.
    */
-  #setColor (color = 'blue') { // probably need to move this
-    const s = new Option().style
+  #setColor (color = 'blue') { // change this so the user can choose multiple colors or add another method that can handle multiple colors
+    const s = new Option().style // validateColor(color)
     s.color = color
 
     if (s.color === '') {
@@ -152,6 +214,7 @@ class DataObject {
         data: this.#data[i],
         label: this.#labels[i],
         color: this.#color // dont know where to put this right now. multiple colors or one color for all bars
+        // the colors should be in a array and then the diagram can choose the color based on whice diagram it is.
       }
       this.#visualData.push(bar)
     }
@@ -167,7 +230,13 @@ class DataObject {
       config: {
         elementId: this.#elementId,
         interactivity: this.#interactivity,
-        animation: this.#animation
+        animation: this.#animation,
+        barWidth: this.#barWidth,
+        svg: this.#svg,
+        fonts: {
+          yAxel: this.#yAxelFontSize,
+          xAxel: this.#xAxelFontSize
+        }
       },
       visualData: this.#visualData
     }

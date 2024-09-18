@@ -7,7 +7,7 @@ try {
     labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
     color: 'blue',
     interactivity: {
-      hover: {
+      changeColor: {
         color: 'green',
         expand: true
       },

@@ -17,7 +17,7 @@ class DiagramFactory {
    * @param {object} data - The data that will be used to render the diagram.
    */
   constructor (data) {
-    this.data = data
+    this.#data = data
   }
 
   /**
@@ -26,7 +26,7 @@ class DiagramFactory {
    * @returns {string} - The rendered diagram.
    */
   createDiagram () {
-    const horizontalBarDiagram = new HorizontalBarDiagram(this.data)
+    const horizontalBarDiagram = new HorizontalBarDiagram(this.#data)
     return horizontalBarDiagram.render()
   }
 }
