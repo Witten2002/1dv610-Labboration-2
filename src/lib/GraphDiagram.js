@@ -1,5 +1,5 @@
 /**
- * KOMMENTAR FÖR MODULEN
+ * A module representing a bar diagram.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
@@ -8,19 +8,26 @@
 import { Diagram } from './Diagram.js'
 
 /**
- * A class representing a bar diagram.
+ * A class representing a graph diagram.
  */
-class BarDiagram extends Diagram { // change name to XYDiagram or remove this
+class GraphDiagram extends Diagram {
   #graphValues
   #dataObjects
+  #visualData
+  #barValues
   /**
-   * Creates an instance of BarDiagram.
+   * Creates an instance of graph diagram.
    *
    * @param {object} data - The data that will be used to render the diagram.
    */
   constructor (data) {
     super(data)
     this.#dataObjects = super.getDataObject()
+    this.#visualData = super.getVisualData()
+    this.#barValues = []
+
+    this.#setBarValues()
+    this.#setMaxValue()
   }
 
   /**
@@ -29,35 +36,46 @@ class BarDiagram extends Diagram { // change name to XYDiagram or remove this
    * @param {number} value - The value to round up.
    * @returns {number} - The rounded up value.
    */
-  #roundUpToNearestTen (value) {
+  #roundUpToNearestTen (value) { // eventuellt flytta denna till diagram.js
     return Math.ceil(value / 10) * 10
+  }
+
+  /**
+   * Sets the bar values.
+   */
+  #setBarValues () {
+    for (const value of this.#visualData) {
+      this.#barValues.push(value.data)
+    }
   }
 
   /**
    * Creates an array with the values.
    *
-   * @param {object} visualData - The visual data.
    * @returns {Array} - The values.
    */
-  getBarValues (visualData) {
-    const data = []
-    for (const value of visualData) {
-      data.push(value.data)
-    }
-    return data
+  getBarValues () { // eventuellt flytta denna till diagram.js
+    return this.#barValues
   }
 
   /**
    * Returns the data.
-   *
-   * @returns {object} - The data.
    */
-  findMaxValue () {
+  #setMaxValue () { // eventuellt flytta denna till diagram.js
+    const NUM_OF_ROWS = 5
+
     const values = this.getBarValues(super.getVisualData())
     const maxValue = Math.max(...values)
-    const rowValue = (this.#roundUpToNearestTen(maxValue) / 5)
-    this.#graphValues = (this.#roundUpToNearestTen(rowValue) * 5)
+    const rowValue = (this.#roundUpToNearestTen(maxValue) / NUM_OF_ROWS)
+    this.#graphValues = (this.#roundUpToNearestTen(rowValue) * NUM_OF_ROWS)
+  }
 
+  /**
+   * Returns the max value.
+   *
+   * @returns {number} - The max value.
+   */
+  getMaxValue () {
     return this.#graphValues
   }
 
@@ -110,4 +128,4 @@ class BarDiagram extends Diagram { // change name to XYDiagram or remove this
   }
 }
 
-export { BarDiagram }
+export { GraphDiagram }

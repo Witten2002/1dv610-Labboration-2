@@ -5,14 +5,12 @@
  * @version 1.0.0
  */
 
-import { BarDiagram } from './BarDiagram.js'
-import { Interactivity } from './Interactivity.js'
-import { Animation } from './Animation.js'
+import { GraphDiagram } from './GraphDiagram.js'
 
 /**
  * A class representing a bar diagram.
  */
-class HorizontalBarDiagram extends BarDiagram {
+class HorizontalBarDiagram extends GraphDiagram {
   #dataObject
   #barValues
   /**
@@ -23,7 +21,7 @@ class HorizontalBarDiagram extends BarDiagram {
   constructor (data) {
     super(data)
     this.#dataObject = super.getDataObject()
-    this.#barValues = super.getBarValues(super.getVisualData())
+    this.#barValues = super.getBarValues()
   }
 
   /**
@@ -32,14 +30,12 @@ class HorizontalBarDiagram extends BarDiagram {
    * @override
    */
   render () {
-    // const svg = document.querySelector(this.#dataObject.config.elementId) // elementId here
-    const svg = this.#dataObject.config.svg
-    // const barWidth = 60 // make this dynamic prop add this to the BarDiagram class or Diagram class. EN TIONEDEL UTAV BREDDEN
-    const barWidth = this.#dataObject.config.barWidth
-    const barSpacing = 10 // make this dynamic. EN TIONEDEL UTAV BARWIDTH
-    const svgHeight = svg.getAttribute('height')
-    const svgWidth = svg.getAttribute('width')
-    const maxDataValue = super.findMaxValue()
+    const svg = super.getSvg()
+    const barWidth = this.#dataObject.config.barWidth // fix a setter and a getter in the parent class
+    const barSpacing = this.#dataObject.config.barSpacing // fix a setter and a getter in the parent class
+    const svgHeight = svg.getAttribute('height') // fix a setter and a getter in the parent class
+    const svgWidth = svg.getAttribute('width') // fix a setter and a getter in the parent class
+    const maxDataValue = super.getMaxValue()
 
     super.createAxels(svg, svgWidth, svgHeight)
 
@@ -48,39 +44,38 @@ class HorizontalBarDiagram extends BarDiagram {
     for (const data of visualData) {
       const index = this.#barValues.indexOf(data.data)
       const barHeigth = (data.data / maxDataValue) * (svgHeight - 50)
-      const x = index * (barWidth + barSpacing) + 50
-      const y = svgHeight - barHeigth - 30
+      const xCoordinate = index * (barWidth + barSpacing) + 50
+      const yCoordinate = svgHeight - barHeigth - 30
 
       // Add bars to the diagram
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-      rect.setAttribute('x', x)
-      rect.setAttribute('y', y)
+      rect.setAttribute('x', xCoordinate)
+      rect.setAttribute('y', yCoordinate)
       rect.setAttribute('width', barWidth)
       rect.setAttribute('height', barHeigth)
       rect.setAttribute('fill', data.color)
 
-      /* ---------------------- INTERACTIVITY ---------------------- */ // maybe create a new method for this.
-      if (this.#dataObject.config.interactivity) {
-        const interactive = new Interactivity(rect)
-        interactive.makeInteractive(this.#dataObject, barHeigth, y, data)
+      /* ---------------------- INTERACTIVITY ---------------------- */
+      const interactivityAndAnimationSettings = {
+        rect,
+        barHeigth,
+        yCoordinate,
+        data,
+        type: 'horizontal'
       }
-
-      if (this.#dataObject.config.animation) {
-        const animate = new Animation(rect)
-        animate.animation('horizontal', barHeigth, y, this.#dataObject.config.animation.speed)
-      }
+      super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
       /* ----------------------------------------------------------- */
 
       svg.appendChild(rect)
 
       // Add text to the bars
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-      text.setAttribute('x', x + barWidth / 2)
+      text.setAttribute('x', xCoordinate + barWidth / 2)
       text.setAttribute('y', svgHeight - 10)
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
-      text.setAttribute('transform', `rotate(-45, ${x + barWidth / 2}, ${svgHeight - 10})`)
+      text.setAttribute('transform', `rotate(-45, ${xCoordinate + barWidth / 2}, ${svgHeight - 10})`)
       text.textContent = data.label
 
       svg.appendChild(text)

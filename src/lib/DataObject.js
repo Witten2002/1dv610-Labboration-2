@@ -21,6 +21,7 @@ class DataObject {
   #svg
   #yAxelFontSize
   #xAxelFontSize
+  #barSpacing
   /**
    * Creates an instance of CreateData. This will create and validate the data.
    *
@@ -39,6 +40,7 @@ class DataObject {
     this.#setElementId(config.elementId)
     this.#setAnimation(config.animation)
     this.#setSvg(config.elementId)
+    this.#setBarSpacing(this.#svg.getAttribute('width'))
     this.#setBarWidth(this.#svg.getAttribute('width'))
     this.#setXAxelFontSize(this.#svg.getAttribute('width'))
     this.#setYAxelFontSize(this.#svg.getAttribute('height'))
@@ -46,6 +48,21 @@ class DataObject {
 
     // This must be done last
     this.#concatinateObjects()
+  }
+
+  /**
+   * Sets the bar spacing.
+   *
+   * @param {number} width - The width of the svg element.
+   */
+  #setBarSpacing (width) {
+    if (width < 200) {
+      this.#barSpacing = 1
+    } else if (width < 600) {
+      this.#barSpacing = 5
+    } else {
+      this.#barSpacing = 10
+    }
   }
 
   /**
@@ -98,7 +115,7 @@ class DataObject {
    */
   #setBarWidth (width) {
     const dataLength = this.#data.length
-    const barSpacing = 10 * dataLength
+    const barSpacing = this.#barSpacing * dataLength
     this.#barWidth = ((width - barSpacing - 50) / (dataLength))
   }
 
@@ -232,6 +249,7 @@ class DataObject {
         interactivity: this.#interactivity,
         animation: this.#animation,
         barWidth: this.#barWidth,
+        barSpacing: this.#barSpacing,
         svg: this.#svg,
         fonts: {
           yAxel: this.#yAxelFontSize,
