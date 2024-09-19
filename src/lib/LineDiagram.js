@@ -68,7 +68,6 @@ class LineDiagram extends GraphDiagram {
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
-      // text.setAttribute('transform', `rotate(-45, ${xCoord}, ${svgHeight - 10})`)
       text.textContent = this.#visualData[i].label
 
       svg.appendChild(text)

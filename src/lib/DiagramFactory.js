@@ -6,6 +6,7 @@
  */
 import { HorizontalBarDiagram } from './HorizontalBarDiagram.js'
 import { LineDiagram } from './LineDiagram.js'
+import { CircleDiagram } from './CircleDiagram.js'
 
 /**
  * A class representing a diagram.
@@ -35,6 +36,14 @@ class DiagramFactory {
   createLineDiagram () {
     const lineDiagram = new LineDiagram(this.#data)
     lineDiagram.render()
+  }
+
+  /**
+   * Creates the diagram.
+   */
+  createCircleDiagram () {
+    const circleDiagram = new CircleDiagram(this.#data)
+    circleDiagram.render()
   }
 }
 

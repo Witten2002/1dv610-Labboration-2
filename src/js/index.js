@@ -24,7 +24,8 @@ try {
     }
   })
   // diagramFactory.createBarDiagram()
-  diagramFactory.createLineDiagram()
+  // diagramFactory.createLineDiagram()
+  diagramFactory.createCircleDiagram()
 } catch (error) {
   console.error(error.message)
 }

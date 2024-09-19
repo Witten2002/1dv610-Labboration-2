@@ -77,7 +77,6 @@ class HorizontalBarDiagram extends GraphDiagram {
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
-      // text.setAttribute('transform', `rotate(-45, ${xCoordinate + barWidth / 2}, ${svgHeight - 10})`)
       text.textContent = visualData[i].label
 
       svg.appendChild(text)
