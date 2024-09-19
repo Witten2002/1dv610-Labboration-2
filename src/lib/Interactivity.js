@@ -47,8 +47,8 @@ class Interactivity {
    * @param {object} visualData - The index of the bars.
    * @param {string} type - The type of the diagram.
    */
-  makeInteractive (dataObject, barHeigth, finalY, visualData, type) { // change the name and maybe create a object where the data is stored to minimize the number of arguments
-    if (dataObject.config.interactivity.hover.show && type !== 'Line') {
+  makeInteractive (dataObject, barHeigth, finalY, visualData, type) {
+    if (dataObject.config.interactivity.hover.show && type !== 'Line' && type !== 'Circle') {
       this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
 

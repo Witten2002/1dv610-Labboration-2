@@ -212,6 +212,10 @@ class DataObject {
     if (!colors.isArray) {
       this.#validateColor(colors)
       this.#color = colors
+      this.#colors = [
+        'red', 'green', 'blue', 'yellow', 'orange', 'purple', 'cyan', 'magenta', 'lime', 'pink',
+        'teal', 'brown', 'navy', 'olive', 'maroon', 'aqua', 'fuchsia', 'gold', 'silver', 'coral'
+      ]
     } else {
       for (const color of colors) {
         this.#validateColor(color)
@@ -266,7 +270,7 @@ class DataObject {
       const bar = {
         data: this.#data[i],
         label: this.#labels[i],
-        colors: this.#colors // generate random colors
+        colors: this.#colors[i] // generate random colors
       }
       this.#visualData.push(bar)
     }

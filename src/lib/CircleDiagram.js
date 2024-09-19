@@ -1,5 +1,5 @@
 /**
- * KOMMENTAR FÖR MODULEN
+ * The class for creating Circle Diagrams.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
@@ -43,7 +43,6 @@ class CircleDiagram extends Diagram {
     const centerX = svgWidth / 2
     const centerY = svgHeight / 2
 
-    const colors = ['red', 'lightgreen', 'blue', 'yellow', 'red', 'green', 'blue', 'yellow', 'red', 'green', 'blue', 'yellow'] // change
     let startAngle = 0
 
     for (let i = 0; i < this.#eachAngles.length; i++) {
@@ -69,11 +68,55 @@ class CircleDiagram extends Diagram {
 
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       path.setAttribute('d', pathData)
-      path.setAttribute('fill', colors[i]) // change
+      path.setAttribute('fill', this.#visualData[i].colors)
+
+      const interactivityAndAnimationSettings = {
+        element: path,
+        visualData: this.#visualData[i],
+        type: 'Circle'
+      }
+      super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
 
       svg.appendChild(path)
 
       startAngle = endAngle
+    }
+    this.#showLabels(svg)
+
+    // maybe add interactivity?? atleast show infobox!!
+  }
+
+  /**
+   * Creating a infobox.
+   *
+   * @param {object} svg - the DOM element.
+   */
+  #showLabels (svg) {
+    const xCoord = 10
+    let yCoord = 10
+
+    for (let i = 0; i < this.#visualData.length; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+      rect.setAttribute('x', xCoord)
+      rect.setAttribute('y', yCoord)
+      rect.setAttribute('width', 10) // need to fins a magical formel
+      rect.setAttribute('height', 10) // need to fins a magical formel
+      rect.setAttribute('fill', this.#visualData[i].colors)
+
+      svg.appendChild(rect)
+
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+      text.setAttribute('x', xCoord * 3)
+      text.setAttribute('y', yCoord + 8)
+      text.setAttribute('fill', 'black')
+      text.setAttribute('text-anchor', 'left')
+
+      text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
+      text.textContent = this.#visualData[i].label
+
+      svg.appendChild(text)
+
+      yCoord += 15 // need to fins a magical formel
     }
   }
 
