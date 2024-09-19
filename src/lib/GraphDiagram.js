@@ -18,10 +18,10 @@ class GraphDiagram extends Diagram {
   /**
    * Creates an instance of graph diagram.
    *
-   * @param {object} data - The data that will be used to render the diagram.
+   * @param {object} config - The data that will be used to render the diagram.
    */
-  constructor (data) {
-    super(data)
+  constructor (config) {
+    super(config)
     this.#dataObjects = super.getDataObject()
     this.#visualData = super.getVisualData()
     this.#barValues = []
@@ -80,6 +80,39 @@ class GraphDiagram extends Diagram {
   }
 
   /**
+   * Creates lines and values.
+   *
+   * @param {object} svg - The svg element.
+   * @param {number} svgWidth - The width of the svg element.
+   * @param {number} svgHeight - The height of the svg element.
+   * @param {number} axisPadding - The padding of the axis.
+   */
+  #showAxisValuesLines (svg, svgWidth, svgHeight, axisPadding) {
+    const NUM_OF_LINES = 5
+    for (let i = 0; i <= NUM_OF_LINES; i++) {
+      const yPos = svgHeight - axisPadding - (i * (svgHeight - axisPadding) / NUM_OF_LINES)
+
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+      label.setAttribute('x', axisPadding - 15)
+      label.setAttribute('y', yPos + 25)
+      label.setAttribute('text-anchor', 'end')
+      label.setAttribute('font-size', this.#dataObjects.config.fonts.yAxel)
+      label.textContent = Math.round((this.#graphValues / NUM_OF_LINES) * i)
+      svg.appendChild(label)
+
+      if (this.#dataObjects.config.decoration.showGrid) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        line.setAttribute('x1', axisPadding - 10)
+        line.setAttribute('y1', yPos + 20)
+        line.setAttribute('x2', svgWidth) // line length
+        line.setAttribute('y2', yPos + 20)
+        line.setAttribute('stroke', 'grey')
+        svg.appendChild(line)
+      }
+    }
+  }
+
+  /**
    * Creates the axels.
    *
    * @param {object} svg - The svg element.
@@ -105,26 +138,8 @@ class GraphDiagram extends Diagram {
     yAxis.setAttribute('stroke', 'black')
     svg.appendChild(yAxis)
 
-    const NUM_OF_LINES = 5
-    for (let i = 0; i <= NUM_OF_LINES; i++) {
-      const yPos = svgHeight - axisPadding - (i * (svgHeight - axisPadding) / NUM_OF_LINES)
-
-      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-      label.setAttribute('x', axisPadding - 15)
-      label.setAttribute('y', yPos + 25)
-      label.setAttribute('text-anchor', 'end')
-      label.setAttribute('font-size', this.#dataObjects.config.fonts.yAxel)
-      label.textContent = Math.round((this.#graphValues / NUM_OF_LINES) * i)
-      svg.appendChild(label)
-
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-      line.setAttribute('x1', axisPadding - 10)
-      line.setAttribute('y1', yPos + 20)
-      line.setAttribute('x2', svgWidth) // line length
-      line.setAttribute('y2', yPos + 20)
-      line.setAttribute('stroke', 'grey')
-      svg.appendChild(line)
-    }
+    // show axis values
+    this.#showAxisValuesLines(svg, svgWidth, svgHeight, axisPadding)
   }
 }
 

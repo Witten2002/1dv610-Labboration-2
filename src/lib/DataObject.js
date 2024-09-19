@@ -13,6 +13,7 @@ class DataObject {
   #data
   #labels
   #color
+  #colors
   #interactivity
   #elementId
   #animation
@@ -22,6 +23,7 @@ class DataObject {
   #yAxelFontSize
   #xAxelFontSize
   #barSpacing
+  #showGrid
   /**
    * Creates an instance of CreateData. This will create and validate the data.
    *
@@ -44,10 +46,24 @@ class DataObject {
     this.#setBarWidth(this.#svg.getAttribute('width'))
     this.#setXAxelFontSize(this.#svg.getAttribute('width'))
     this.#setYAxelFontSize(this.#svg.getAttribute('height'))
+    this.#setShowGrid(config.decoration.showGrid)
     /* ---------------------------- */
 
     // This must be done last
-    this.#concatinateObjects()
+    this.#createObject()
+  }
+
+  /**
+   * Sets the show grid.
+   *
+   * @param {boolean} showGrid - If the user wants to show the grid.
+   */
+  #setShowGrid (showGrid = false) {
+    if (typeof showGrid !== 'boolean') {
+      throw new Error('The showGrid must be a boolean')
+    }
+
+    this.#showGrid = showGrid
   }
 
   /**
@@ -186,16 +202,32 @@ class DataObject {
   /**
    * Sets the color. The default color is blue.
    *
-   * @param {string} color - The color that will be used to render the diagram.
+   * @param {string} colors - The color that will be used to render the diagram.
    */
-  #setColor (color = 'blue') { // change this so the user can choose multiple colors or add another method that can handle multiple colors
-    const s = new Option().style // validateColor(color)
+  #setColor (colors) { // change this so the user can choose multiple colors or add another method that can handle multiple colors
+    if (!colors.isArray) {
+      this.#validateColor(colors)
+      this.#color = colors
+    } else {
+      for (const color of colors) {
+        this.#validateColor(color)
+        this.#colors.push(color)
+      }
+      this.#color = this.#colors[0]
+    }
+  }
+
+  /**
+   * Validate a color.
+   *
+   * @param {string} color - the color to be validated.
+   */
+  #validateColor (color) {
+    const s = new Option().style
     s.color = color
 
     if (s.color === '') {
       throw new Error('The color must be a string')
-    } else {
-      this.#color = color
     }
   }
 
@@ -230,19 +262,18 @@ class DataObject {
       const bar = {
         data: this.#data[i],
         label: this.#labels[i],
-        color: this.#color // dont know where to put this right now. multiple colors or one color for all bars
-        // the colors should be in a array and then the diagram can choose the color based on whice diagram it is.
+        colors: this.#colors // generate random colors
       }
       this.#visualData.push(bar)
     }
-
-    this.#createObject()
   }
 
   /**
    * Creates the object.
    */
   #createObject () {
+    this.#concatinateObjects()
+
     this.#dataObject = {
       config: {
         elementId: this.#elementId,
@@ -254,6 +285,10 @@ class DataObject {
         fonts: {
           yAxel: this.#yAxelFontSize,
           xAxel: this.#xAxelFontSize
+        },
+        decoration: {
+          showGrid: this.#showGrid,
+          color: this.#color
         }
       },
       visualData: this.#visualData

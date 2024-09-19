@@ -22,14 +22,12 @@ class Animation {
   /**
    * Animates the bars.
    *
-   * @param {string} type - The type of the
-   * @param {number} finalHeight - The final height of the bar.
-   * @param {number} finalY - The final y position of the bar.
-   * @param {number} speed - The speed of the animation.
+   * @param {object} config - The configuration of the animation.
    */
-  animation (type, finalHeight, finalY, speed) {
-    if (type === 'horizontal') {
-      this.#animateBar(finalHeight, finalY, speed)
+  animation (config) {
+    if (config.type === 'horizontal') {
+      this.#animateBar(config.finalHeight, config.finalY, config.speed)
+      console.log(config)
     }
   }
 
@@ -40,13 +38,15 @@ class Animation {
    * @param {number} finalY - The final y position of the bar.
    * @param {number} speed - The speed of the animation.
    */
-  #animateBar (finalHeight, finalY, speed) { // eventuellt gör denna abstrakt & change the parameters to good names.
+  #animateBar (finalHeight, finalY, speed) {
     let currentHeight = 0
     let currentY = parseInt(this.#rect.getAttribute('y')) + finalHeight
 
     const SPEED = speed
     const increment = finalHeight / SPEED
     const yIncrement = finalHeight / SPEED
+
+    console.log(finalHeight)
 
     /**
      * Animates the bars.

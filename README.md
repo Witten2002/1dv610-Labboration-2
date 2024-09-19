@@ -11,19 +11,38 @@ Fix so that the an error occure when there is more bars than the diagram can han
 ## Current configuration
 
 ```javascript
-const diagramFactory = new DiagramFactory({
+  const diagramFactory = new DiagramFactory({
+    elementId: '#svgDiagram',
     data: [10, 20, 100, 40, 120, 96, 130],
     labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
     color: 'blue',
     interactivity: {
-      hover: {
+      changeColor: {
         color: 'green',
         expand: true
       },
       infoBoxWhenHover: true,
       animate: {
-        speed: 60
+        speed: 100
       }
+    },
+    animation: {
+      speed: 100
+    },
+    decoration: {
+      showGrid: true
+    },
+    multipleData: {
+      data: [
+        [10, 20, 100, 40, 120, 96, 130],
+        [10, 20, 100, 40, 120, 96, 130],
+        [10, 20, 100, 40, 120, 96, 130],
+        [10, 20, 100, 40, 120, 96, 130],
+        [10, 20, 100, 40, 120, 96, 130],
+        [10, 20, 100, 40, 120, 96, 130],
+        [10, 20, 100, 40, 120, 96, 130]
+      ],
+      labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     }
   })
 

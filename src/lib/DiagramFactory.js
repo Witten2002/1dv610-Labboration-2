@@ -5,6 +5,7 @@
  * @version 1.0.0
  */
 import { HorizontalBarDiagram } from './HorizontalBarDiagram.js'
+import { LineDiagram } from './LineDiagram.js'
 
 /**
  * A class representing a diagram.
@@ -22,12 +23,18 @@ class DiagramFactory {
 
   /**
    * Creates the diagram.
-   *
-   * @returns {string} - The rendered diagram.
    */
-  createDiagram () {
+  createBarDiagram () {
     const horizontalBarDiagram = new HorizontalBarDiagram(this.#data)
-    return horizontalBarDiagram.render()
+    horizontalBarDiagram.render()
+  }
+
+  /**
+   * Creates the diagram.
+   */
+  createLineDiagram () {
+    const lineDiagram = new LineDiagram(this.#data)
+    lineDiagram.render()
   }
 }
 

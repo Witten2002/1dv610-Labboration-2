@@ -18,9 +18,13 @@ try {
     },
     animation: {
       speed: 100
+    },
+    decoration: {
+      showGrid: true
     }
   })
-  diagramFactory.createDiagram()
+  // diagramFactory.createBarDiagram()
+  diagramFactory.createLineDiagram()
 } catch (error) {
   console.error(error.message)
 }

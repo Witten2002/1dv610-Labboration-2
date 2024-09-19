@@ -48,17 +48,19 @@ class Interactivity {
    * @param {number} barHeigth - The height of the bars.
    * @param {number} finalY - The final y position of the bars.
    * @param {object} visualData - The index of the bars.
+   * @param {string} type - The type of the diagram.
    */
-  makeInteractive (dataObject, barHeigth, finalY, visualData) { // change the name and maybe create a object where the data is stored to minimize the number of arguments
-    if (dataObject.config.interactivity.hover.show) {
+  makeInteractive (dataObject, barHeigth, finalY, visualData, type) { // change the name and maybe create a object where the data is stored to minimize the number of arguments
+    if (dataObject.config.interactivity.hover.show && type !== 'Line') {
       this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
 
+    // bugg here will not load the correct data when the mouse is over the bars. can be removed to add && type !== 'Line' to the if statement
     if (dataObject.config.interactivity.infoBoxWhenHover.show) {
       this.#showInfoBoxWhenHover(visualData.label, visualData.data)
     }
 
-    if (dataObject.config.interactivity.animate) { // move this to a new class
+    if (dataObject.config.interactivity.animate) {
       this.#animateBar(this.#rect, barHeigth, finalY, dataObject.config.interactivity.animate.speed)
     }
     // ask if if the user want to make tho change color when the mouse is over the bars or if the user want to add a little information about the bars

@@ -56,13 +56,7 @@ class Diagram {
    * @returns {object} - The data.
    */
   getVisualData () {
-    const data = []
-    const visualData = this.#dataObject.getVisualData()
-
-    for (const value of visualData) {
-      data.push(value)
-    }
-    return data
+    return this.#dataObject.getVisualData()
   }
 
   /**
@@ -83,13 +77,24 @@ class Diagram {
     const objectData = this.getDataObject()
 
     if (objectData.config.interactivity) {
-      const interactive = new Interactivity(config.rect)
-      interactive.makeInteractive(objectData, config.barHeigth, config.yCoordinate, config.data)
+      const interactive = new Interactivity(config.element)
+      interactive.makeInteractive(objectData, config.barHeigth, config.yCoordinate, config.visualData, config.type)
     }
 
     if (objectData.config.animation) {
-      const animate = new Animation(config.rect)
-      animate.animation(config.type, config.barHeigth, config.yCoordinate, objectData.config.animation.speed)
+      const animate = new Animation(config.element)
+
+      const animationConfig = {
+        element: config.element,
+        type: config.type,
+        finalHeight: config.finalHeight,
+        finalY: config.finalY,
+        speed: objectData.config.animation.speed,
+        initialPoints: config.initialPoints,
+        finalPoints: config.finalPoints
+      }
+      console.log(animationConfig)
+      animate.animation(animationConfig)
     }
   }
 

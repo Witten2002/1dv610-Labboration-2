@@ -16,10 +16,10 @@ class HorizontalBarDiagram extends GraphDiagram {
   /**
    * Creates an instance of BarDiagram.
    *
-   * @param {object} data - The data that will be used to render the diagram.
+   * @param {object} config - The data that will be used to render the diagram.
    */
-  constructor (data) {
-    super(data)
+  constructor (config) {
+    super(config)
     this.#dataObject = super.getDataObject()
     this.#barValues = super.getBarValues()
   }
@@ -30,6 +30,7 @@ class HorizontalBarDiagram extends GraphDiagram {
    * @override
    */
   render () {
+    console.log('he')
     const svg = super.getSvg()
     const barWidth = this.#dataObject.config.barWidth // fix a setter and a getter in the parent class
     const barSpacing = this.#dataObject.config.barSpacing // fix a setter and a getter in the parent class
@@ -42,7 +43,7 @@ class HorizontalBarDiagram extends GraphDiagram {
     // Loops through the data and render the bars
     const visualData = super.getVisualData()
     for (const data of visualData) {
-      const index = this.#barValues.indexOf(data.data)
+      const index = this.#barValues.indexOf(data.data) // change this breakes
       const barHeigth = (data.data / maxDataValue) * (svgHeight - 50)
       const xCoordinate = index * (barWidth + barSpacing) + 50
       const yCoordinate = svgHeight - barHeigth - 30
@@ -53,14 +54,14 @@ class HorizontalBarDiagram extends GraphDiagram {
       rect.setAttribute('y', yCoordinate)
       rect.setAttribute('width', barWidth)
       rect.setAttribute('height', barHeigth)
-      rect.setAttribute('fill', data.color)
+      rect.setAttribute('fill', this.#dataObject.config.decoration.color)
 
       /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {
-        rect,
-        barHeigth,
-        yCoordinate,
-        data,
+        element: rect,
+        finalHeight: barHeigth,
+        finalY: yCoordinate,
+        visualData: data,
         type: 'horizontal'
       }
       super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
