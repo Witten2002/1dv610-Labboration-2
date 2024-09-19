@@ -31,20 +31,9 @@ Fix so that the an error occure when there is more bars than the diagram can han
     },
     decoration: {
       showGrid: true
-    },
-    multipleData: {
-      data: [
-        [10, 20, 100, 40, 120, 96, 130],
-        [10, 20, 100, 40, 120, 96, 130],
-        [10, 20, 100, 40, 120, 96, 130],
-        [10, 20, 100, 40, 120, 96, 130],
-        [10, 20, 100, 40, 120, 96, 130],
-        [10, 20, 100, 40, 120, 96, 130],
-        [10, 20, 100, 40, 120, 96, 130]
-      ],
-      labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     }
   })
 
-  diagramFactory.createDiagram()
+  // diagramFactory.createBarDiagram()
+  // diagramFactory.createLineDiagram()
 ```

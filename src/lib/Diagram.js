@@ -93,7 +93,6 @@ class Diagram {
         initialPoints: config.initialPoints,
         finalPoints: config.finalPoints
       }
-      console.log(animationConfig)
       animate.animation(animationConfig)
     }
   }

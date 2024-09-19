@@ -1,16 +1,16 @@
 /**
- * KOMMENTAR FÖR MODULEN
+ * Line Diagram class
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
  */
 
-import { HorizontalBarDiagram } from './HorizontalBarDiagram'
+import { GraphDiagram } from './GraphDiagram'
 
 /**
  * A class representing a line diagram.
  */
-class LineDiagram extends HorizontalBarDiagram {
+class LineDiagram extends GraphDiagram {
   #dataObject
   #visualData
 
@@ -42,7 +42,7 @@ class LineDiagram extends HorizontalBarDiagram {
     const points = []
 
     for (let i = 0; i < visualData.length; i++) {
-      xCoordinate = (i / visualData.length) * (svgWidth - 100) + 50
+      xCoordinate = (i / visualData.length) * (svgWidth - 100) + 75
       yCoordinate = svgHeight - (visualData[i].data / maxDataValue) * (svgHeight - 50) - 30
       points.push(`${xCoordinate},${yCoordinate}`)
     }
@@ -55,12 +55,12 @@ class LineDiagram extends HorizontalBarDiagram {
 
     svg.appendChild(polyline)
 
-    // i = 0
-
-    for (let i = 0; i < points; i++) {
+    for (let i = 0; i < points.length; i++) {
       const coords = points[i].split(',')
       const xCoord = coords[0]
       const yCoord = coords[1]
+
+      console.log(xCoord + this.#dataObject.config.barWidth / 2)
 
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
       text.setAttribute('x', xCoord)
@@ -68,6 +68,7 @@ class LineDiagram extends HorizontalBarDiagram {
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
+      // text.setAttribute('transform', `rotate(-45, ${xCoord}, ${svgHeight - 10})`)
       text.textContent = this.#visualData[i].label
 
       svg.appendChild(text)
@@ -79,6 +80,13 @@ class LineDiagram extends HorizontalBarDiagram {
       circle.setAttribute('fill', this.#dataObject.config.decoration.color)
 
       // here we can make this interactive
+      const interactivityAndAnimationSettings = {
+        element: circle,
+        finalY: yCoordinate,
+        visualData: visualData[i],
+        type: 'Line'
+      }
+      super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
 
       svg.appendChild(circle)
     }

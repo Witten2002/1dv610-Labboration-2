@@ -27,7 +27,6 @@ class Animation {
   animation (config) {
     if (config.type === 'horizontal') {
       this.#animateBar(config.finalHeight, config.finalY, config.speed)
-      console.log(config)
     }
   }
 
@@ -45,8 +44,6 @@ class Animation {
     const SPEED = speed
     const increment = finalHeight / SPEED
     const yIncrement = finalHeight / SPEED
-
-    console.log(finalHeight)
 
     /**
      * Animates the bars.

@@ -88,11 +88,13 @@ class DataObject {
    */
   #setXAxelFontSize (width) {
     if (width < 200) {
+      this.#xAxelFontSize = 4
+    } else if (width < 400) {
       this.#xAxelFontSize = 8
-    } else if (width < 600) {
-      this.#xAxelFontSize = 14
+    } else if (width <= 600) {
+      this.#xAxelFontSize = 12
     } else {
-      this.#xAxelFontSize = 18
+      this.#xAxelFontSize = 14
     }
   }
 
@@ -103,11 +105,13 @@ class DataObject {
    */
   #setYAxelFontSize (height) {
     if (height < 200) {
+      this.#yAxelFontSize = 4
+    } else if (height < 400) {
       this.#yAxelFontSize = 8
     } else if (height < 600) {
-      this.#yAxelFontSize = 14
+      this.#yAxelFontSize = 12
     } else {
-      this.#yAxelFontSize = 18
+      this.#yAxelFontSize = 14
     }
   }
 

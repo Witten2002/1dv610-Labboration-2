@@ -30,7 +30,6 @@ class HorizontalBarDiagram extends GraphDiagram {
    * @override
    */
   render () {
-    console.log('he')
     const svg = super.getSvg()
     const barWidth = this.#dataObject.config.barWidth // fix a setter and a getter in the parent class
     const barSpacing = this.#dataObject.config.barSpacing // fix a setter and a getter in the parent class
@@ -39,13 +38,15 @@ class HorizontalBarDiagram extends GraphDiagram {
     const maxDataValue = super.getMaxValue()
 
     super.createAxels(svg, svgWidth, svgHeight)
+    const xCoodinates = []
 
     // Loops through the data and render the bars
     const visualData = super.getVisualData()
-    for (const data of visualData) {
-      const index = this.#barValues.indexOf(data.data) // change this breakes
-      const barHeigth = (data.data / maxDataValue) * (svgHeight - 50)
-      const xCoordinate = index * (barWidth + barSpacing) + 50
+    for (let i = 0; i < visualData.length; i++) {
+      // const index = this.#barValues.indexOf(data.data) // change this breakes
+      const barHeigth = (visualData[i].data / maxDataValue) * (svgHeight - 50)
+      const xCoordinate = i * (barWidth + barSpacing) + 50
+      xCoodinates.push(xCoordinate)
       const yCoordinate = svgHeight - barHeigth - 30
 
       // Add bars to the diagram
@@ -61,7 +62,7 @@ class HorizontalBarDiagram extends GraphDiagram {
         element: rect,
         finalHeight: barHeigth,
         finalY: yCoordinate,
-        visualData: data,
+        visualData: visualData[i],
         type: 'horizontal'
       }
       super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
@@ -76,8 +77,8 @@ class HorizontalBarDiagram extends GraphDiagram {
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'middle')
       text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
-      text.setAttribute('transform', `rotate(-45, ${xCoordinate + barWidth / 2}, ${svgHeight - 10})`)
-      text.textContent = data.label
+      // text.setAttribute('transform', `rotate(-45, ${xCoordinate + barWidth / 2}, ${svgHeight - 10})`)
+      text.textContent = visualData[i].label
 
       svg.appendChild(text)
     }

@@ -4,7 +4,7 @@ try {
   const diagramFactory = new DiagramFactory({
     elementId: '#svgDiagram',
     data: [10, 20, 100, 40, 120, 96, 130],
-    labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+    labels: ['Januari', 'Februari', 'Oktober', 'September', 'November', 'December', 'Augustri'],
     color: 'blue',
     interactivity: {
       changeColor: {

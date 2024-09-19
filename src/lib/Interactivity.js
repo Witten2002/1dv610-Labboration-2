@@ -11,7 +11,7 @@
 class Interactivity {
   /* ----- Private properties ----- */
   // the rect element
-  #rect
+  #element
   #originalColor
   #originalHeight
   #originalWidth
@@ -25,20 +25,17 @@ class Interactivity {
   /**
    * Creates an instance of Interactivity.
    *
-   * @param {object} rect - The chart that will be used to render the diagram.
+   * @param {object} element - The chart that will be used to render the diagram.
    */
-  constructor (rect) {
-    this.#rect = rect
-    this.#originalColor = this.#rect.getAttribute('fill')
-    this.#originalHeight = parseInt(this.#rect.getAttribute('height'))
-    this.#originalWidth = parseInt(this.#rect.getAttribute('width'))
+  constructor (element) {
+    this.#element = element
+    this.#originalColor = this.#element.getAttribute('fill')
+    this.#originalHeight = parseInt(this.#element.getAttribute('height'))
+    this.#originalWidth = parseInt(this.#element.getAttribute('width'))
 
     // get the original position of the bars
-    this.#originalX = parseInt(this.#rect.getAttribute('x'))
-    this.#originalY = parseInt(this.#rect.getAttribute('y'))
-
-    // create the info box
-    this.#createInfoBox()
+    this.#originalX = parseInt(this.#element.getAttribute('x'))
+    this.#originalY = parseInt(this.#element.getAttribute('y'))
   }
 
   /**
@@ -55,15 +52,10 @@ class Interactivity {
       this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
 
-    // bugg here will not load the correct data when the mouse is over the bars. can be removed to add && type !== 'Line' to the if statement
     if (dataObject.config.interactivity.infoBoxWhenHover.show) {
+      this.#createInfoBox()
       this.#showInfoBoxWhenHover(visualData.label, visualData.data)
     }
-
-    if (dataObject.config.interactivity.animate) {
-      this.#animateBar(this.#rect, barHeigth, finalY, dataObject.config.interactivity.animate.speed)
-    }
-    // ask if if the user want to make tho change color when the mouse is over the bars or if the user want to add a little information about the bars
   }
 
   /**
@@ -74,7 +66,7 @@ class Interactivity {
    */
   #reactToMouseOver (color = 'red', expand = false) {
     // interact with the bars when the mouse is over them
-    this.#rect.addEventListener('mouseover', (event) => {
+    this.#element.addEventListener('mouseover', (event) => {
       event.target.setAttribute('fill', color)
       event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
       if (expand) {
@@ -87,7 +79,7 @@ class Interactivity {
     })
 
     // reset the color of the bars when the mouse is not over them
-    this.#rect.addEventListener('mouseout', (event) => {
+    this.#element.addEventListener('mouseout', (event) => {
       event.target.setAttribute('fill', this.#originalColor)
       if (expand) {
         // reset the bars to their original size and position when the mouse is not over them
@@ -107,7 +99,7 @@ class Interactivity {
    */
   #showInfoBoxWhenHover (title, value) {
     // show the info box when the mouse is over the bars
-    this.#rect.addEventListener('mouseover', (event) => {
+    this.#element.addEventListener('mouseover', (event) => {
       this.#infoBox.style.display = 'flex'
       setTimeout(() => {
         this.#infoBox.style.opacity = '1'
@@ -118,13 +110,13 @@ class Interactivity {
     })
 
     // move the info box with the mouse
-    this.#rect.addEventListener('mousemove', (event) => {
+    this.#element.addEventListener('mousemove', (event) => {
       this.#infoBox.style.top = `${event.clientY + 10}px`
       this.#infoBox.style.left = `${event.clientX + 10}px`
     })
 
     // hide the info box when the mouse is not over the bars
-    this.#rect.addEventListener('mouseout', (event) => {
+    this.#element.addEventListener('mouseout', (event) => {
       this.#infoBox.style.display = 'none'
       this.#infoBox.style.opacity = '0'
       this.#infoBox.style.transform = 'scale(0.95)'
@@ -169,40 +161,6 @@ class Interactivity {
     /* ------------------------------ */
 
     document.body.appendChild(this.#infoBox)
-  }
-
-  /**
-   * Animates the bars.
-   *
-   * @param {object} rect - The bar that will be animated.
-   * @param {number} finalHeight - The final height of the bar.
-   * @param {number} finalY - The final y position of the bar.
-   * @param {number} speed - The speed of the animation.
-   */
-  #animateBar (rect, finalHeight, finalY, speed) { // eventuellt gör denna abstrakt
-    let currentHeight = 0
-    let currentY = parseInt(rect.getAttribute('y')) + finalHeight
-
-    const SPEED = speed
-    const increment = finalHeight / SPEED
-    const yIncrement = finalHeight / SPEED
-
-    /**
-     * Animates the bars.
-     */
-    const animate = () => {
-      if (currentHeight < finalHeight) {
-        currentHeight += increment
-        currentY -= yIncrement
-        rect.setAttribute('height', currentHeight)
-        rect.setAttribute('y', currentY)
-        requestAnimationFrame(animate)
-      } else {
-        rect.setAttribute('height', finalHeight)
-        rect.setAttribute('y', finalY)
-      }
-    }
-    requestAnimationFrame(animate)
   }
 }
 
