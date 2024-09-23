@@ -12,38 +12,50 @@ import { CircleDiagram } from './CircleDiagram.js'
  * A class representing a diagram.
  */
 class DiagramFactory {
-  #data
+  #config
   /**
    * Creates an instance of DiagramFactory.
    *
-   * @param {object} data - The data that will be used to render the diagram.
+   * @param {object} config - The data that will be used to render the diagram.
    */
-  constructor (data) {
-    this.#data = data
+  constructor (config) {
+    this.#config = config
   }
 
   /**
    * Creates the diagram.
    */
   createBarDiagram () {
-    const horizontalBarDiagram = new HorizontalBarDiagram(this.#data)
-    horizontalBarDiagram.render()
+    try {
+      const horizontalBarDiagram = new HorizontalBarDiagram(this.#config)
+      horizontalBarDiagram.render()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   /**
    * Creates the diagram.
    */
   createLineDiagram () {
-    const lineDiagram = new LineDiagram(this.#data)
-    lineDiagram.render()
+    try {
+      const lineDiagram = new LineDiagram(this.#config)
+      lineDiagram.render()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   /**
    * Creates the diagram.
    */
   createCircleDiagram () {
-    const circleDiagram = new CircleDiagram(this.#data)
-    circleDiagram.render()
+    try {
+      const circleDiagram = new CircleDiagram(this.#config)
+      circleDiagram.render()
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

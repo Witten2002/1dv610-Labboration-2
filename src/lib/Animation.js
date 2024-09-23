@@ -26,7 +26,7 @@ class Animation {
    */
   animation (config) {
     if (config.type === 'horizontal') {
-      this.#animateBar(config.finalHeight, config.finalY, config.speed)
+      this.#animateHorizontalBar(config.finalHeight, config.finalY, config.speed)
     }
   }
 
@@ -37,7 +37,7 @@ class Animation {
    * @param {number} finalY - The final y position of the bar.
    * @param {number} speed - The speed of the animation.
    */
-  #animateBar (finalHeight, finalY, speed) {
+  #animateHorizontalBar (finalHeight, finalY, speed) {
     let currentHeight = 0
     let currentY = parseInt(this.#rect.getAttribute('y')) + finalHeight
 

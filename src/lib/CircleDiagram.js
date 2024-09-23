@@ -36,9 +36,12 @@ class CircleDiagram extends Diagram {
     this.#calculateEachPercent(sum)
     this.#calculateEachAngle()
 
-    const svg = document.querySelector(this.#dataObject.config.elementId)
-    const svgHeight = svg.getAttribute('height')
-    const svgWidth = svg.getAttribute('width')
+    /*  -------------------------- ADD SETTER AND GETTER IN PARENT CLASS -------------------------- */
+    const svg = super.getSvg()
+    const svgHeight = super.getSvgHeight()
+    const svgWidth = super.getSvgWidth()
+    /* -------------------------------------------------------------------------------------------- */
+
     const radius = Math.min(svgWidth, svgHeight) / 2 - 50
     const centerX = svgWidth / 2
     const centerY = svgHeight / 2
@@ -70,20 +73,20 @@ class CircleDiagram extends Diagram {
       path.setAttribute('d', pathData)
       path.setAttribute('fill', this.#visualData[i].colors)
 
+      /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {
         element: path,
         visualData: this.#visualData[i],
         type: 'Circle'
       }
       super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
+      /* ----------------------------------------------------------- */
 
       svg.appendChild(path)
 
       startAngle = endAngle
     }
     this.#showLabels(svg)
-
-    // maybe add interactivity?? atleast show infobox!!
   }
 
   /**
@@ -96,27 +99,43 @@ class CircleDiagram extends Diagram {
     let yCoord = 10
 
     for (let i = 0; i < this.#visualData.length; i++) {
+      // add an color box top left
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
       rect.setAttribute('x', xCoord)
       rect.setAttribute('y', yCoord)
-      rect.setAttribute('width', 10) // need to fins a magical formel
-      rect.setAttribute('height', 10) // need to fins a magical formel
+      rect.setAttribute('width', 10)
+      rect.setAttribute('height', 10)
       rect.setAttribute('fill', this.#visualData[i].colors)
 
       svg.appendChild(rect)
 
+      const textPercent = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+      textPercent.setAttribute('x', xCoord * 3)
+      textPercent.setAttribute('y', yCoord + 8)
+      textPercent.setAttribute('fill', 'black')
+      textPercent.setAttribute('text-anchor', 'left')
+      textPercent.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
+
+      /* ------------ Calculate correct percentage ------------ */
+      const percentInDec = this.#eachPrecents[i]
+      const percent = Math.round((percentInDec * 100))
+      /* ------------------------------------------------------ */
+      textPercent.textContent = `${percent}%`
+
+      svg.appendChild(textPercent)
+
+      // add thext to the color box
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-      text.setAttribute('x', xCoord * 3)
+      text.setAttribute('x', xCoord * 6)
       text.setAttribute('y', yCoord + 8)
       text.setAttribute('fill', 'black')
       text.setAttribute('text-anchor', 'left')
-
       text.setAttribute('font-size', this.#dataObject.config.fonts.xAxel)
       text.textContent = this.#visualData[i].label
 
       svg.appendChild(text)
 
-      yCoord += 15 // need to fins a magical formel
+      yCoord += 15
     }
   }
 

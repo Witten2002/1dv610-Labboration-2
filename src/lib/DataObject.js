@@ -145,6 +145,9 @@ class DataObject {
    * @param {object} animation - The animation that will be used to render the diagram.
    */
   #setAnimation (animation) {
+    if (typeof animation.speed !== 'number') {
+      throw new Error('Animation speed must be a number')
+    }
     if (!animation) {
       this.#animation = false
     } else {
@@ -235,7 +238,7 @@ class DataObject {
     s.color = color
 
     if (s.color === '') {
-      throw new Error('The color must be a string')
+      throw new Error('Not a valid color')
     }
   }
 
@@ -270,7 +273,7 @@ class DataObject {
       const bar = {
         data: this.#data[i],
         label: this.#labels[i],
-        colors: this.#colors[i] // generate random colors
+        colors: this.#colors[i]
       }
       this.#visualData.push(bar)
     }

@@ -48,7 +48,7 @@ class Interactivity {
    * @param {string} type - The type of the diagram.
    */
   makeInteractive (dataObject, barHeigth, finalY, visualData, type) {
-    if (dataObject.config.interactivity.hover.show && type !== 'Line' && type !== 'Circle') {
+    if (dataObject.config.interactivity.hover.show && type !== 'Line' && type !== 'Circle') { // right now only working on HorizontlBarDiagram
       this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
 
@@ -67,7 +67,7 @@ class Interactivity {
   #reactToMouseOver (color = 'red', expand = false) {
     // interact with the bars when the mouse is over them
     this.#element.addEventListener('mouseover', (event) => {
-      event.target.setAttribute('fill', color)
+      event.target.setAttribute('fill', color) // add this to a seperate method
       event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
       if (expand) {
         // expand the bars when the mouse is over them and animate the change
@@ -80,7 +80,7 @@ class Interactivity {
 
     // reset the color of the bars when the mouse is not over them
     this.#element.addEventListener('mouseout', (event) => {
-      event.target.setAttribute('fill', this.#originalColor)
+      event.target.setAttribute('fill', this.#originalColor) // add this to a seperate method
       if (expand) {
         // reset the bars to their original size and position when the mouse is not over them
         event.target.setAttribute('width', this.#originalWidth)

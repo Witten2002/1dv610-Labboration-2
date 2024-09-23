@@ -15,6 +15,7 @@ class GraphDiagram extends Diagram {
   #dataObjects
   #visualData
   #barValues
+  #svg
   /**
    * Creates an instance of graph diagram.
    *
@@ -25,9 +26,11 @@ class GraphDiagram extends Diagram {
     this.#dataObjects = super.getDataObject()
     this.#visualData = super.getVisualData()
     this.#barValues = []
+    this.#svg = super.getSvg()
 
     this.#setBarValues()
     this.#setMaxValue()
+    this.#createAxels(this.#svg, super.getSvgWidth(), super.getSvgHeight())
   }
 
   /**
@@ -36,7 +39,7 @@ class GraphDiagram extends Diagram {
    * @param {number} value - The value to round up.
    * @returns {number} - The rounded up value.
    */
-  #roundUpToNearestTen (value) { // eventuellt flytta denna till diagram.js
+  #roundUpToNearestTen (value) {
     return Math.ceil(value / 10) * 10
   }
 
@@ -54,14 +57,14 @@ class GraphDiagram extends Diagram {
    *
    * @returns {Array} - The values.
    */
-  getBarValues () { // eventuellt flytta denna till diagram.js
+  getBarValues () {
     return this.#barValues
   }
 
   /**
    * Returns the data.
    */
-  #setMaxValue () { // eventuellt flytta denna till diagram.js
+  #setMaxValue () {
     const NUM_OF_ROWS = 5
 
     const values = this.getBarValues(super.getVisualData())
@@ -104,7 +107,7 @@ class GraphDiagram extends Diagram {
         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
         line.setAttribute('x1', axisPadding - 10)
         line.setAttribute('y1', yPos + 20)
-        line.setAttribute('x2', svgWidth) // line length
+        line.setAttribute('x2', svgWidth)
         line.setAttribute('y2', yPos + 20)
         line.setAttribute('stroke', 'grey')
         svg.appendChild(line)
@@ -119,7 +122,7 @@ class GraphDiagram extends Diagram {
    * @param {number} svgWidth - The width of the svg element.
    * @param {number} svgHeight - The height of the svg element.
    */
-  createAxels (svg, svgWidth, svgHeight) {
+  #createAxels (svg, svgWidth, svgHeight) {
     const axisPadding = 50
 
     const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line')

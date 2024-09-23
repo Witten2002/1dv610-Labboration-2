@@ -32,11 +32,9 @@ class LineDiagram extends GraphDiagram {
     let yCoordinate
     let xCoordinate
     const svg = super.getSvg()
-    const svgHeight = svg.getAttribute('height')
-    const svgWidth = svg.getAttribute('width')
+    const svgHeight = super.getSvgHeight()
+    const svgWidth = super.getSvgWidth()
     const maxDataValue = super.getMaxValue()
-
-    super.createAxels(svg, svgWidth, svgHeight)
 
     const visualData = super.getVisualData()
     const points = []
@@ -47,6 +45,7 @@ class LineDiagram extends GraphDiagram {
       points.push(`${xCoordinate},${yCoordinate}`)
     }
 
+    // creates the line
     const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
     polyline.setAttribute('points', points)
     polyline.setAttribute('fill', 'none')
@@ -55,6 +54,7 @@ class LineDiagram extends GraphDiagram {
 
     svg.appendChild(polyline)
 
+    // creates a small circle on every value
     for (let i = 0; i < points.length; i++) {
       const coords = points[i].split(',')
       const xCoord = coords[0]
@@ -78,7 +78,7 @@ class LineDiagram extends GraphDiagram {
       circle.setAttribute('r', 4)
       circle.setAttribute('fill', this.#dataObject.config.decoration.color)
 
-      // here we can make this interactive
+      /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {
         element: circle,
         finalY: yCoordinate,
@@ -86,6 +86,7 @@ class LineDiagram extends GraphDiagram {
         type: 'Line'
       }
       super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
+      /* ----------------------------------------------------------- */
 
       svg.appendChild(circle)
     }

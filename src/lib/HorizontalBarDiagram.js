@@ -12,7 +12,6 @@ import { GraphDiagram } from './GraphDiagram.js'
  */
 class HorizontalBarDiagram extends GraphDiagram {
   #dataObject
-  #barValues
   /**
    * Creates an instance of BarDiagram.
    *
@@ -21,7 +20,6 @@ class HorizontalBarDiagram extends GraphDiagram {
   constructor (config) {
     super(config)
     this.#dataObject = super.getDataObject()
-    this.#barValues = super.getBarValues()
   }
 
   /**
@@ -31,19 +29,16 @@ class HorizontalBarDiagram extends GraphDiagram {
    */
   render () {
     const svg = super.getSvg()
-    const barWidth = this.#dataObject.config.barWidth // fix a setter and a getter in the parent class
-    const barSpacing = this.#dataObject.config.barSpacing // fix a setter and a getter in the parent class
-    const svgHeight = svg.getAttribute('height') // fix a setter and a getter in the parent class
-    const svgWidth = svg.getAttribute('width') // fix a setter and a getter in the parent class
+    const barWidth = this.#dataObject.config.barWidth
+    const barSpacing = this.#dataObject.config.barSpacing
+    const svgHeight = super.getSvgHeight()
     const maxDataValue = super.getMaxValue()
 
-    super.createAxels(svg, svgWidth, svgHeight)
     const xCoodinates = []
 
     // Loops through the data and render the bars
     const visualData = super.getVisualData()
     for (let i = 0; i < visualData.length; i++) {
-      // const index = this.#barValues.indexOf(data.data) // change this breakes
       const barHeigth = (visualData[i].data / maxDataValue) * (svgHeight - 50)
       const xCoordinate = i * (barWidth + barSpacing) + 50
       xCoodinates.push(xCoordinate)

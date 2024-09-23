@@ -13,6 +13,8 @@ import { Animation } from './Animation.js'
 class Diagram {
   #dataObject
   #svg
+  #svgHeight
+  #svgWidth
   /**
    * Creates an instance of Diagram.
    *
@@ -21,6 +23,8 @@ class Diagram {
   constructor (config) {
     this.#setDataObject(config)
     this.#setSvg(this.#dataObject.getDataObject().config.svg)
+    this.#setsvgHeight(this.#svg)
+    this.#setsvgWidth(this.#svg)
   }
 
   /**
@@ -30,6 +34,42 @@ class Diagram {
    */
   #setSvg (svg) {
     this.#svg = svg
+  }
+
+  /**
+   * Sets the heigt of the element.
+   *
+   * @param {object} svg - Svg Element.
+   */
+  #setsvgHeight (svg) {
+    this.#svgHeight = svg.getAttribute('height')
+  }
+
+  /**
+   * Gets the height of the SVG element.
+   *
+   * @returns {number} The height of the SVG element.
+   */
+  getSvgHeight () {
+    return this.#svgHeight
+  }
+
+  /**
+   * Sets the heigt of the element.
+   *
+   * @param {object} svg - Svg Element.
+   */
+  #setsvgWidth (svg) {
+    this.#svgWidth = svg.getAttribute('width')
+  }
+
+  /**
+   * Gets the height of the SVG element.
+   *
+   * @returns {number} The height of the SVG element.
+   */
+  getSvgWidth () {
+    return this.#svgWidth
   }
 
   /**
