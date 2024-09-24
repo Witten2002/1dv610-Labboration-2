@@ -42,7 +42,7 @@ class DiagramFactory {
       const lineDiagram = new LineDiagram(this.#config)
       lineDiagram.render()
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
     }
   }
 
@@ -54,7 +54,7 @@ class DiagramFactory {
       const circleDiagram = new CircleDiagram(this.#config)
       circleDiagram.render()
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
     }
   }
 }

@@ -29,9 +29,9 @@ class DataObject {
     this.#visualData = []
 
     /* --------- VALIDATE --------- */
-    this.#setData(config.data) // chnage
-    this.#setInteractivity(config.interactivity)
     this.#setElementId(config.elementId)
+    this.#setData(config.data)
+    this.#setInteractivity(config.interactivity)
     this.#setAnimation(config.animation, config.animation.speed)
     this.#setSvg(config.elementId)
     this.#setBarSpacing(this.#svg.getAttribute('width'))
@@ -179,12 +179,16 @@ class DataObject {
    * @param {object} dataArray - The data that will be used to render the diagram.
    */
   #setData (dataArray) {
+    if (!dataArray) {
+      throw new Error('Data was not provided.')
+    }
+
     for (const data of dataArray) {
       // check if not provided
       if (!data.value) {
-        throw new Error('Data was not provided.')
-      } else if (!data.label) {
         throw new Error('Value was not provided.')
+      } else if (!data.label) {
+        throw new Error('Label was not provided.')
       } else if (!data.color) {
         throw new Error('Color was not provided.')
       }
@@ -218,8 +222,8 @@ class DataObject {
   #setElementId (elementId) {
     if (elementId === undefined) {
       throw new Error('The element is not provided.')
-    } else if (typeof elementId !== 'string' && !elementId.startsWith('#')) {
-      throw new Error('The elementId must be a string and start width #')
+    } else if (typeof elementId !== 'string' || !elementId.startsWith('#')) {
+      throw new Error('Could not find the element in the DOM.')
     } else {
       this.#elementId = elementId
     }

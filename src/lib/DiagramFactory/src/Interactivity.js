@@ -19,6 +19,7 @@ class Interactivity {
   #title
   #value
   #orginalRadius
+  #eventTarget
   /* ----------------------------- */
 
   /**
@@ -75,19 +76,21 @@ class Interactivity {
           event.target.style.transition = 'r 0.5s ease'
           event.target.setAttribute('r', this.#orginalRadius + 3)
         }
+        this.#eventTarget = event.target.tagName
       }
     })
 
     // reset the color of the bars when the mouse is not over them
     this.#element.addEventListener('mouseout', (event) => {
       if (expand) {
-        if (event.target.tageName === 'rect') {
+        if (this.#eventTarget === 'rect') {
           // reset the bars to their original size and position when the mouse is not over them
+          console.log('wrog')
           event.target.setAttribute('width', this.#originalWidth)
           event.target.setAttribute('height', this.#originalHeight)
           event.target.setAttribute('x', this.#originalX)
           event.target.setAttribute('y', this.#originalY)
-        } else if (event.target.tagName === 'circle') {
+        } else if (this.#eventTarget === 'circle') {
           event.target.setAttribute('r', this.#orginalRadius)
         }
       }
