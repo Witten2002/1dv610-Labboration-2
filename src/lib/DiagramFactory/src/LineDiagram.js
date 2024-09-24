@@ -41,15 +41,16 @@ class LineDiagram extends GraphDiagram {
 
     for (let i = 0; i < visualData.length; i++) {
       xCoordinate = (i / visualData.length) * (svgWidth - 100) + 75
-      yCoordinate = svgHeight - (visualData[i].data / maxDataValue) * (svgHeight - 50) - 30
+      yCoordinate = svgHeight - (visualData[i].value / maxDataValue) * (svgHeight - 50) - 30
       points.push(`${xCoordinate},${yCoordinate}`)
+      console.log(this.#dataObject.visualData[0].color)
     }
 
     // creates the line
     const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
     polyline.setAttribute('points', points)
     polyline.setAttribute('fill', 'none')
-    polyline.setAttribute('stroke', this.#dataObject.config.decoration.color)
+    polyline.setAttribute('stroke', this.#dataObject.visualData[0].color)
     polyline.setAttribute('stroke-width', '2')
 
     svg.appendChild(polyline)
@@ -74,7 +75,7 @@ class LineDiagram extends GraphDiagram {
       circle.setAttribute('cx', xCoord)
       circle.setAttribute('cy', yCoord)
       circle.setAttribute('r', 4)
-      circle.setAttribute('fill', this.#dataObject.config.decoration.color)
+      circle.setAttribute('fill', this.#dataObject.visualData[0].color)
 
       /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {

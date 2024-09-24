@@ -47,8 +47,8 @@ class GraphDiagram extends Diagram {
    * Sets the bar values.
    */
   #setBarValues () {
-    for (const value of this.#visualData) {
-      this.#barValues.push(value.data)
+    for (const data of this.#visualData) {
+      this.#barValues.push(data.value)
     }
   }
 
