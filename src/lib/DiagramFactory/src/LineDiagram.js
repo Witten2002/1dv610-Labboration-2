@@ -43,7 +43,6 @@ class LineDiagram extends GraphDiagram {
       xCoordinate = (i / visualData.length) * (svgWidth - 100) + 75
       yCoordinate = svgHeight - (visualData[i].value / maxDataValue) * (svgHeight - 50) - 30
       points.push(`${xCoordinate},${yCoordinate}`)
-      console.log(this.#dataObject.visualData[0].color)
     }
 
     // creates the line

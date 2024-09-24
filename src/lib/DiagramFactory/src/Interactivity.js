@@ -10,9 +10,7 @@
  */
 class Interactivity {
   /* ----- Private properties ----- */
-  // the rect element
   #element
-  #originalColor
   #originalHeight
   #originalWidth
   #originalX
@@ -20,6 +18,7 @@ class Interactivity {
   #infoBox
   #title
   #value
+  #orginalRadius
   /* ----------------------------- */
 
   /**
@@ -29,13 +28,13 @@ class Interactivity {
    */
   constructor (element) {
     this.#element = element
-    this.#originalColor = this.#element.getAttribute('fill')
     this.#originalHeight = parseInt(this.#element.getAttribute('height'))
     this.#originalWidth = parseInt(this.#element.getAttribute('width'))
 
     // get the original position of the bars
     this.#originalX = parseInt(this.#element.getAttribute('x'))
     this.#originalY = parseInt(this.#element.getAttribute('y'))
+    this.#orginalRadius = parseInt(this.#element.getAttribute('r'))
   }
 
   /**
@@ -46,8 +45,8 @@ class Interactivity {
    * @param {string} type - The type of the diagram.
    */
   makeInteractive (dataObject, visualData, type) {
-    if (dataObject.config.interactivity.hover.show && type !== 'Line' && type !== 'Circle') { // right now only working on HorizontlBarDiagram
-      this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
+    if (dataObject.config.interactivity.hover.show && type !== 'Circle') { // right now not working on CircleDiagram/path
+      this.#reactToMouseOver(dataObject.config.interactivity.hover.show.expand)
     }
 
     if (dataObject.config.interactivity.infoBoxWhenHover.show) {
@@ -59,32 +58,38 @@ class Interactivity {
   /**
    * Reacts to mouse over.
    *
-   * @param {string} color - The color of the bars when the mouse is over them.
    * @param {boolean} expand - If the bars should be expaned when the mouse is over them.
    */
-  #reactToMouseOver (color = 'red', expand = false) {
+  #reactToMouseOver (expand) {
     // interact with the bars when the mouse is over them
     this.#element.addEventListener('mouseover', (event) => {
-      event.target.setAttribute('fill', color) // add this to a seperate method
-      event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
       if (expand) {
-        // expand the bars when the mouse is over them and animate the change
-        event.target.setAttribute('width', this.#originalWidth + 10)
-        event.target.setAttribute('height', this.#originalHeight + 10)
-        event.target.setAttribute('x', this.#originalX - 5)
-        event.target.setAttribute('y', this.#originalY - 5)
+        if (event.target.tagName === 'rect') {
+          // expand the bars when the mouse is over them and animate the change
+          event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
+          event.target.setAttribute('width', this.#originalWidth + 10)
+          event.target.setAttribute('height', this.#originalHeight + 10)
+          event.target.setAttribute('x', this.#originalX - 5)
+          event.target.setAttribute('y', this.#originalY - 5)
+        } else if (event.target.tagName === 'circle') {
+          event.target.style.transition = 'r 0.5s ease'
+          event.target.setAttribute('r', this.#orginalRadius + 3)
+        }
       }
     })
 
     // reset the color of the bars when the mouse is not over them
     this.#element.addEventListener('mouseout', (event) => {
-      event.target.setAttribute('fill', this.#originalColor) // add this to a seperate method
       if (expand) {
-        // reset the bars to their original size and position when the mouse is not over them
-        event.target.setAttribute('width', this.#originalWidth)
-        event.target.setAttribute('height', this.#originalHeight)
-        event.target.setAttribute('x', this.#originalX)
-        event.target.setAttribute('y', this.#originalY)
+        if (event.target.tageName === 'rect') {
+          // reset the bars to their original size and position when the mouse is not over them
+          event.target.setAttribute('width', this.#originalWidth)
+          event.target.setAttribute('height', this.#originalHeight)
+          event.target.setAttribute('x', this.#originalX)
+          event.target.setAttribute('y', this.#originalY)
+        } else if (event.target.tagName === 'circle') {
+          event.target.setAttribute('r', this.#orginalRadius)
+        }
       }
     })
   }

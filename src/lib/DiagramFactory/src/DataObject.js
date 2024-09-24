@@ -231,10 +231,10 @@ class DataObject {
    * @param {string} color - the color to be validated.
    */
   #validateColor (color) {
-    const s = new Option().style
-    s.color = color
+    const style = new Option().style
+    style.color = color
 
-    if (s.color === '') {
+    if (style.color === '') {
       throw new Error('Not a valid color')
     }
   }
@@ -256,8 +256,6 @@ class DataObject {
    * Creates the object.
    */
   #createObject () {
-    // this.#concatinateObjects()
-
     this.#dataObject = {
       config: {
         elementId: this.#elementId,

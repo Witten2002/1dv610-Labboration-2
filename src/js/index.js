@@ -3,7 +3,7 @@ import { DiagramFactory } from '../lib/DiagramFactory/DiagramFactory'
 try {
   const diagramFactory = new DiagramFactory({
     elementId: '#svgDiagram', // REQUIRED
-    data: [
+    data: [ // REQUIRED
       { label: 'A', value: 10, color: 'blue' },
       { label: 'B', value: 20, color: 'red' },
       { label: 'C', value: 100, color: 'green' },
@@ -14,7 +14,6 @@ try {
     ],
     interactivity: { // OPTIONAL
       changeColor: { // OPTIONAL
-        color: 'green', // OPTIONAL
         expand: true // OPTIONAL
       },
       infoBoxWhenHover: true // OPTIONAL
@@ -26,8 +25,8 @@ try {
       showGrid: true // OPTIONAL
     }
   })
-  diagramFactory.createBarDiagram()
-  // diagramFactory.createLineDiagram()
+  // diagramFactory.createBarDiagram()
+  diagramFactory.createLineDiagram()
   // diagramFactory.createCircleDiagram()
 } catch (error) {
   console.error(error.message)
