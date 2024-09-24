@@ -60,8 +60,6 @@ class LineDiagram extends GraphDiagram {
       const xCoord = coords[0]
       const yCoord = coords[1]
 
-      console.log(xCoord + this.#dataObject.config.barWidth / 2)
-
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
       text.setAttribute('x', xCoord)
       text.setAttribute('y', svgHeight - 10)

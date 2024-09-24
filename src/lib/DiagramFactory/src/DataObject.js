@@ -10,10 +10,6 @@
  */
 class DataObject {
   #dataObject
-  #data
-  #labels
-  #color
-  #colors
   #interactivity
   #elementId
   #animation
@@ -30,23 +26,19 @@ class DataObject {
    * @param {object} config - The data that will be used to render the diagram.
    */
   constructor (config) {
-    this.#data = []
-    this.#labels = []
     this.#visualData = []
 
     /* --------- VALIDATE --------- */
-    this.#setData(config.data)
-    this.#setLabels(config.labels)
-    this.#setColor(config.color)
+    this.#setData(config.data) // chnage
     this.#setInteractivity(config.interactivity)
     this.#setElementId(config.elementId)
-    this.#setAnimation(config.animation)
+    this.#setAnimation(config.animation, config.animation.speed)
     this.#setSvg(config.elementId)
     this.#setBarSpacing(this.#svg.getAttribute('width'))
     this.#setBarWidth(this.#svg.getAttribute('width'))
     this.#setXAxelFontSize(this.#svg.getAttribute('width'))
     this.#setYAxelFontSize(this.#svg.getAttribute('height'))
-    this.#setShowGrid(config.decoration.showGrid)
+    this.#setShowGrid(config.decoration)
     /* ---------------------------- */
 
     // This must be done last
@@ -56,14 +48,16 @@ class DataObject {
   /**
    * Sets the show grid.
    *
-   * @param {boolean} showGrid - If the user wants to show the grid.
+   * @param {boolean} decoration - If the user wants to show the grid.
    */
-  #setShowGrid (showGrid = false) {
-    if (typeof showGrid !== 'boolean') {
-      throw new Error('The showGrid must be a boolean')
-    }
+  #setShowGrid (decoration) {
+    if (decoration !== undefined) {
+      if (decoration.showGrid !== undefined && typeof decoration.showGrid !== 'boolean') {
+        throw new Error('showGrid must be a boolean')
+      }
 
-    this.#showGrid = showGrid
+      this.#showGrid = decoration.showGrid ?? true
+    }
   }
 
   /**
@@ -134,7 +128,7 @@ class DataObject {
    * @param {number} width - The width of the svg element.
    */
   #setBarWidth (width) {
-    const dataLength = this.#data.length
+    const dataLength = this.#visualData.length
     const barSpacing = this.#barSpacing * dataLength
     this.#barWidth = ((width - barSpacing - 50) / (dataLength))
   }
@@ -143,16 +137,18 @@ class DataObject {
    * Sets the animation.
    *
    * @param {object} animation - The animation that will be used to render the diagram.
+   * @param {object} speed - The animation speed.
    */
-  #setAnimation (animation) {
-    if (typeof animation.speed !== 'number') {
-      throw new Error('Animation speed must be a number')
-    }
+  #setAnimation (animation, speed = 100) {
     if (!animation) {
       this.#animation = false
     } else {
+      if (typeof speed !== 'number') {
+        throw new Error('Animation speed must be a number')
+      }
+
       this.#animation = {
-        speed: animation.speed
+        speed
       }
     }
   }
@@ -180,16 +176,37 @@ class DataObject {
   /**
    * Sets the data.
    *
-   * @param {object} data - The data that will be used to render the diagram.
+   * @param {object} dataArray - The data that will be used to render the diagram.
    */
-  #setData (data) {
-    for (const value of data) {
-      // if the data is not a number then throw an error
-      if (!parseInt(value)) {
-        throw new Error('The data must be a number')
-      } else {
-        this.#data.push(value)
+  #setData (dataArray) {
+    for (const data of dataArray) {
+      // check if not provided
+      if (!data.value) {
+        throw new Error('Data was not provided.')
+      } else if (!data.label) {
+        throw new Error('Value was not provided.')
+      } else if (!data.color) {
+        throw new Error('Color was not provided.')
       }
+
+      // validate each value
+      this.#validateValue(data.value)
+      this.#validateLabel(data.label)
+      this.#validateColor(data.color)
+
+      // The Ok Data.
+      this.#visualData.push(data)
+    }
+  }
+
+  /**
+   * Validate the value and place it in an array if ok.
+   *
+   * @param {number} value - The value each "bar" have.
+   */
+  #validateValue (value) {
+    if (typeof value !== 'number') {
+      throw new Error('Value need to ba a number.')
     }
   }
 
@@ -199,32 +216,12 @@ class DataObject {
    * @param {string} elementId - The element id that will be used to render the diagram.
    */
   #setElementId (elementId) {
-    if (typeof elementId !== 'string' && !elementId.startsWith('#')) {
-      throw new Error('The elementId must be a string')
+    if (elementId === undefined) {
+      throw new Error('The element is not provided.')
+    } else if (typeof elementId !== 'string' && !elementId.startsWith('#')) {
+      throw new Error('The elementId must be a string and start width #')
     } else {
       this.#elementId = elementId
-    }
-  }
-
-  /**
-   * Sets the color. The default color is blue.
-   *
-   * @param {string} colors - The color that will be used to render the diagram.
-   */
-  #setColor (colors) { // change this so the user can choose multiple colors or add another method that can handle multiple colors
-    if (!colors.isArray) {
-      this.#validateColor(colors)
-      this.#color = colors
-      this.#colors = [
-        'red', 'green', 'blue', 'yellow', 'orange', 'purple', 'cyan', 'magenta', 'lime', 'pink',
-        'teal', 'brown', 'navy', 'olive', 'maroon', 'aqua', 'fuchsia', 'gold', 'silver', 'coral'
-      ]
-    } else {
-      for (const color of colors) {
-        this.#validateColor(color)
-        this.#colors.push(color)
-      }
-      this.#color = this.#colors[0]
     }
   }
 
@@ -245,37 +242,13 @@ class DataObject {
   /**
    * Sets the labels.
    *
-   * @param {object} labels - The labels that will be used to render the diagram.
+   * @param {object} label - The labels that will be used to render the diagram.
    */
-  #setLabels (labels) {
-    // error handling for the labels
-    if (labels.length !== this.#data.length && labels.length !== 0) {
-      throw new Error('The labels must be the same length as the data')
-    } else if (!Array.isArray(labels)) {
-      throw new Error('The labels must be an array')
-    } else {
-      for (const label of labels) {
-        if (typeof label !== 'string') {
-          throw new Error('The labels must be a string')
-        } else {
-          this.#labels.push(label)
-        }
-      }
-    }
-  }
-
-  /**
-   * Concatinates the data and labels.
-   *
-   */
-  #concatinateObjects () {
-    for (let i = 0; i < this.#data.length; i++) {
-      const bar = {
-        data: this.#data[i],
-        label: this.#labels[i],
-        colors: this.#colors[i]
-      }
-      this.#visualData.push(bar)
+  #validateLabel (label) {
+    if (typeof label !== 'string') {
+      throw new Error('Labels must be a string')
+    } else if (label.length > 20) {
+      throw new Error('Label is longer then 20 character.')
     }
   }
 
@@ -283,7 +256,7 @@ class DataObject {
    * Creates the object.
    */
   #createObject () {
-    this.#concatinateObjects()
+    // this.#concatinateObjects()
 
     this.#dataObject = {
       config: {
@@ -298,8 +271,7 @@ class DataObject {
           xAxel: this.#xAxelFontSize
         },
         decoration: {
-          showGrid: this.#showGrid,
-          color: this.#color
+          showGrid: this.#showGrid
         }
       },
       visualData: this.#visualData

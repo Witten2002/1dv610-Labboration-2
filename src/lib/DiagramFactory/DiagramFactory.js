@@ -4,9 +4,9 @@
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
  */
-import { HorizontalBarDiagram } from './HorizontalBarDiagram.js'
-import { LineDiagram } from './LineDiagram.js'
-import { CircleDiagram } from './CircleDiagram.js'
+import { HorizontalBarDiagram } from './src/HorizontalBarDiagram.js'
+import { LineDiagram } from './src/LineDiagram.js'
+import { CircleDiagram } from './src/CircleDiagram.js'
 
 /**
  * A class representing a diagram.
@@ -30,7 +30,7 @@ class DiagramFactory {
       const horizontalBarDiagram = new HorizontalBarDiagram(this.#config)
       horizontalBarDiagram.render()
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
     }
   }
 

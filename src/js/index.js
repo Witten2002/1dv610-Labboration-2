@@ -1,26 +1,29 @@
-import { DiagramFactory } from '../lib/DiagramFactory'
+import { DiagramFactory } from '../lib/DiagramFactory/DiagramFactory'
 
 try {
   const diagramFactory = new DiagramFactory({
-    elementId: '#svgDiagram',
-    data: [10, 20, 100, 40, 120, 96, 130],
-    labels: ['Januari', 'Februari', 'Oktober', 'September', 'November', 'December', 'Augustri'],
-    color: 'blue',
-    interactivity: {
-      changeColor: {
-        color: 'green',
-        expand: true
+    elementId: '#svgDiagram', // REQUIRED
+    data: [
+      { label: 'A', value: 10, color: 'blue' },
+      { label: 'B', value: 20, color: 'red' },
+      { label: 'C', value: 100, color: 'green' },
+      { label: 'D', value: 40, color: 'yellow' },
+      { label: 'E', value: 120, color: 'purple' },
+      { label: 'F', value: 96, color: 'orange' },
+      { label: 'G', value: 130, color: 'cyan' }
+    ],
+    interactivity: { // OPTIONAL
+      changeColor: { // OPTIONAL
+        color: 'green', // OPTIONAL
+        expand: true // OPTIONAL
       },
-      infoBoxWhenHover: true,
-      animate: {
-        speed: 100
-      }
+      infoBoxWhenHover: true // OPTIONAL
     },
-    animation: {
-      speed: 100
+    animation: { // OPTIONAL
+      speed: 100 // OPTIONAL
     },
-    decoration: {
-      showGrid: true
+    decoration: { // OPTIONAL
+      showGrid: true // OPTIONAL
     }
   })
   // diagramFactory.createBarDiagram()

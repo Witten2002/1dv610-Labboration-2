@@ -71,7 +71,7 @@ class CircleDiagram extends Diagram {
 
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       path.setAttribute('d', pathData)
-      path.setAttribute('fill', this.#visualData[i].colors)
+      path.setAttribute('fill', this.#visualData[i].color)
 
       /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {
@@ -105,7 +105,7 @@ class CircleDiagram extends Diagram {
       rect.setAttribute('y', yCoord)
       rect.setAttribute('width', 10)
       rect.setAttribute('height', 10)
-      rect.setAttribute('fill', this.#visualData[i].colors)
+      rect.setAttribute('fill', this.#visualData[i].color)
 
       svg.appendChild(rect)
 
@@ -147,8 +147,8 @@ class CircleDiagram extends Diagram {
   #calculateSum () {
     let sum = 0
 
-    for (const value of this.#visualData) {
-      sum += value.data
+    for (const data of this.#visualData) {
+      sum += data.value
     }
 
     return sum
@@ -172,8 +172,8 @@ class CircleDiagram extends Diagram {
    * @param {number} sum - Total value.
    */
   #calculateEachPercent (sum) {
-    for (const value of this.#visualData) {
-      const percent = value.data / sum
+    for (const data of this.#visualData) {
+      const percent = data.value / sum
       this.#eachPrecents.push(percent)
     }
   }
