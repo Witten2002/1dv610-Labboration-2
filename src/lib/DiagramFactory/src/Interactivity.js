@@ -42,19 +42,17 @@ class Interactivity {
    * Makes the bars interactive.
    *
    * @param {object} dataObject - The settings for the interactivity.
-   * @param {number} barHeigth - The height of the bars.
-   * @param {number} finalY - The final y position of the bars.
    * @param {object} visualData - The index of the bars.
    * @param {string} type - The type of the diagram.
    */
-  makeInteractive (dataObject, barHeigth, finalY, visualData, type) {
+  makeInteractive (dataObject, visualData, type) {
     if (dataObject.config.interactivity.hover.show && type !== 'Line' && type !== 'Circle') { // right now only working on HorizontlBarDiagram
       this.#reactToMouseOver(dataObject.config.interactivity.hover.show.color, dataObject.config.interactivity.hover.show.expand)
     }
 
     if (dataObject.config.interactivity.infoBoxWhenHover.show) {
       this.#createInfoBox()
-      this.#showInfoBoxWhenHover(visualData.label, visualData.data)
+      this.#showInfoBoxWhenHover(visualData.label, visualData.value)
     }
   }
 

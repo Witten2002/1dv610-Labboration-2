@@ -26,8 +26,8 @@ try {
       showGrid: true // OPTIONAL
     }
   })
-  // diagramFactory.createBarDiagram()
-  diagramFactory.createLineDiagram()
+  diagramFactory.createBarDiagram()
+  // diagramFactory.createLineDiagram()
   // diagramFactory.createCircleDiagram()
 } catch (error) {
   console.error(error.message)

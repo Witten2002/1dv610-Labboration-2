@@ -39,7 +39,7 @@ class HorizontalBarDiagram extends GraphDiagram {
     // Loops through the data and render the bars
     const visualData = super.getVisualData()
     for (let i = 0; i < visualData.length; i++) {
-      const barHeigth = (visualData[i].data / maxDataValue) * (svgHeight - 50)
+      const barHeigth = (visualData[i].value / maxDataValue) * (svgHeight - 50)
       const xCoordinate = i * (barWidth + barSpacing) + 50
       xCoodinates.push(xCoordinate)
       const yCoordinate = svgHeight - barHeigth - 30
@@ -50,7 +50,7 @@ class HorizontalBarDiagram extends GraphDiagram {
       rect.setAttribute('y', yCoordinate)
       rect.setAttribute('width', barWidth)
       rect.setAttribute('height', barHeigth)
-      rect.setAttribute('fill', this.#dataObject.config.decoration.color)
+      rect.setAttribute('fill', visualData[i].color)
 
       /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {

@@ -118,7 +118,7 @@ class Diagram {
 
     if (objectData.config.interactivity) {
       const interactive = new Interactivity(config.element)
-      interactive.makeInteractive(objectData, config.barHeigth, config.yCoordinate, config.visualData, config.type)
+      interactive.makeInteractive(objectData, config.visualData, config.type)
     }
 
     if (objectData.config.animation) {
