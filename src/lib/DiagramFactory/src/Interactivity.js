@@ -46,8 +46,10 @@ class Interactivity {
    * @param {string} type - The type of the diagram.
    */
   makeInteractive (dataObject, visualData, type) {
-    if (dataObject.config.interactivity.hover.show && type !== 'Circle') { // right now not working on CircleDiagram/path
-      this.#reactToMouseOver(dataObject.config.interactivity.hover.show.expand)
+    // currently not working with circle/path diagrams
+    if (dataObject.config.interactivity.expand.show && type !== 'Circle') {
+      console.log(dataObject.config.interactivity.expand.show)
+      this.#reactToMouseOver(dataObject.config.interactivity.expand.show)
     }
 
     if (dataObject.config.interactivity.infoBoxWhenHover.show) {
@@ -57,16 +59,15 @@ class Interactivity {
   }
 
   /**
-   * Reacts to mouse over.
+   * The user can interactive with the diagram.
    *
-   * @param {boolean} expand - If the bars should be expaned when the mouse is over them.
+   * @param {boolean} expand - If the diagram should expaned when the mouse is over them.
    */
   #reactToMouseOver (expand) {
-    // interact with the bars when the mouse is over them
     this.#element.addEventListener('mouseover', (event) => {
       if (expand) {
+        // expand the bars when the mouse is over them and animate the change
         if (event.target.tagName === 'rect') {
-          // expand the bars when the mouse is over them and animate the change
           event.target.style.transition = 'width 0.5s ease, height 0.5s ease, x 0.5s ease, y 0.5s ease'
           event.target.setAttribute('width', this.#originalWidth + 10)
           event.target.setAttribute('height', this.#originalHeight + 10)
@@ -80,12 +81,10 @@ class Interactivity {
       }
     })
 
-    // reset the color of the bars when the mouse is not over them
+    // reset the bars to their original size and position when the mouse is not over them
     this.#element.addEventListener('mouseout', (event) => {
       if (expand) {
         if (this.#eventTarget === 'rect') {
-          // reset the bars to their original size and position when the mouse is not over them
-          console.log('wrog')
           event.target.setAttribute('width', this.#originalWidth)
           event.target.setAttribute('height', this.#originalHeight)
           event.target.setAttribute('x', this.#originalX)
@@ -104,7 +103,6 @@ class Interactivity {
    * @param {object} value - The settings for the info box.
    */
   #showInfoBoxWhenHover (title, value) {
-    // show the info box when the mouse is over the bars
     this.#element.addEventListener('mouseover', (event) => {
       this.#infoBox.style.display = 'flex'
       setTimeout(() => {

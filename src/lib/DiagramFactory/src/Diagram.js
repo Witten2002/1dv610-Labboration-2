@@ -117,6 +117,7 @@ class Diagram {
     const objectData = this.getDataObject()
 
     if (objectData.config.interactivity) {
+      console.log(objectData.config.interactivity)
       const interactive = new Interactivity(config.element)
       interactive.makeInteractive(objectData, config.visualData, config.type)
     }

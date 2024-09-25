@@ -20,6 +20,7 @@ class DataObject {
   #xAxelFontSize
   #barSpacing
   #showGrid
+  #svgWidth
   /**
    * Creates an instance of CreateData. This will create and validate the data.
    *
@@ -32,17 +33,25 @@ class DataObject {
     this.#setElementId(config.elementId)
     this.#setData(config.data)
     this.#setInteractivity(config.interactivity)
-    this.#setAnimation(config.animation, config.animation.speed)
+    this.#setAnimation(config.animation)
     this.#setSvg(config.elementId)
-    this.#setBarSpacing(this.#svg.getAttribute('width'))
-    this.#setBarWidth(this.#svg.getAttribute('width'))
-    this.#setXAxelFontSize(this.#svg.getAttribute('width'))
+    this.#setSvgWidth()
+    this.#setBarSpacing()
+    this.#setBarWidth()
+    this.#setXAxelFontSize()
     this.#setYAxelFontSize(this.#svg.getAttribute('height'))
     this.#setShowGrid(config.decoration)
     /* ---------------------------- */
 
     // This must be done last
     this.#createObject()
+  }
+
+  /**
+   * Gets the svg heigt and sets it to a private field.
+   */
+  #setSvgWidth () {
+    this.#svgWidth = this.#svg.getAttribute('width')
   }
 
   /**
@@ -56,19 +65,19 @@ class DataObject {
         throw new Error('showGrid must be a boolean')
       }
 
-      this.#showGrid = decoration.showGrid ?? true
+      this.#showGrid = decoration.showGrid
+    } else {
+      this.#showGrid = true
     }
   }
 
   /**
    * Sets the bar spacing.
-   *
-   * @param {number} width - The width of the svg element.
    */
-  #setBarSpacing (width) {
-    if (width < 200) {
+  #setBarSpacing () {
+    if (this.#svgWidth < 200) {
       this.#barSpacing = 1
-    } else if (width < 600) {
+    } else if (this.#svgWidth < 600) {
       this.#barSpacing = 5
     } else {
       this.#barSpacing = 10
@@ -77,15 +86,13 @@ class DataObject {
 
   /**
    * Sets the x axel font size.
-   *
-   * @param {number} width - The width of the svg element.
    */
-  #setXAxelFontSize (width) {
-    if (width < 200) {
+  #setXAxelFontSize () {
+    if (this.#svgWidth < 200) {
       this.#xAxelFontSize = 4
-    } else if (width < 400) {
+    } else if (this.#svgWidth < 400) {
       this.#xAxelFontSize = 8
-    } else if (width <= 600) {
+    } else if (this.#svgWidth <= 600) {
       this.#xAxelFontSize = 12
     } else {
       this.#xAxelFontSize = 14
@@ -124,27 +131,32 @@ class DataObject {
 
   /**
    * Sets the bar width. **Magical number** 50 is the padding on the left side of the svg element.
-   *
-   * @param {number} width - The width of the svg element.
    */
-  #setBarWidth (width) {
+  #setBarWidth () {
     const dataLength = this.#visualData.length
     const barSpacing = this.#barSpacing * dataLength
-    this.#barWidth = ((width - barSpacing - 50) / (dataLength))
+    this.#barWidth = ((this.#svgWidth - barSpacing - 50) / (dataLength))
   }
 
   /**
    * Sets the animation.
    *
    * @param {object} animation - The animation that will be used to render the diagram.
-   * @param {object} speed - The animation speed.
    */
-  #setAnimation (animation, speed = 100) {
+  #setAnimation (animation) {
     if (!animation) {
       this.#animation = false
     } else {
-      if (typeof speed !== 'number') {
-        throw new Error('Animation speed must be a number')
+      let speed = 0
+
+      if (animation.speed) {
+        if (typeof animation.speed !== 'number') {
+          throw new Error('Animation speed must be a number')
+        }
+
+        speed = animation.speed
+      } else {
+        speed = 100
       }
 
       this.#animation = {
@@ -161,9 +173,9 @@ class DataObject {
   #setInteractivity (interactivity) {
     if (interactivity) {
       this.#interactivity = {
-        hover: {
+        expand: {
           // check if the user want hover effect on the bars
-          show: interactivity.changeColor ? interactivity.changeColor : false
+          show: interactivity.expand ? interactivity.expand : false
         },
         infoBoxWhenHover: {
           // check if the user want to add a little information about the bars when the mouse is over them

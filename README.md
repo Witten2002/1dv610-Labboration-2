@@ -40,34 +40,28 @@ Fix so that the an error occure when there is more bars than the diagram can han
 ```
 ### WE WANT THIS
 ```javascript
-const diagramFactory = new DiagramFactory({
-  elementId: '#svgDiagram',
-  data: [
-    { label: 'A', value: 10, color: 'blue' },
-    { label: 'B', value: 20, color: 'red' },
-    { label: 'C', value: 100, color: 'green' },
-    { label: 'D', value: 40, color: 'yellow' },
-    { label: 'E', value: 120, color: 'purple' },
-    { label: 'F', value: 96, color: 'orange' },
-    { label: 'G', value: 130, color: 'cyan' }
-  ],
-  interactivity: {
-    changeColor: {
-      color: 'green',
-      expand: true
+  const diagramFactory = new DiagramFactory({
+    elementId: '#svgDiagram', // REQUIRED
+    data: [ // REQUIRED
+      { label: 'A', value: 10, color: 'blue' },
+      { label: 'B', value: 20, color: 'red' },
+      { label: 'C', value: 100, color: 'green' },
+      { label: 'D', value: 40, color: 'yellow' },
+      { label: 'E', value: 120, color: 'purple' },
+      { label: 'F', value: 96, color: 'orange' },
+      { label: 'G', value: 130, color: 'cyan' }
+    ],
+    interactivity: { // OPTIONAL
+      expand: true, // OPTIONAL,
+      infoBoxWhenHover: true // OPTIONAL
     },
-    infoBoxWhenHover: true,
-    animate: {
-      speed: 100
+    animation: { // OPTIONAL
+      speed: 100 // OPTIONAL
+    },
+    decoration: { // OPTIONAL
+      showGrid: true // OPTIONAL
     }
-  },
-  animation: {
-    speed: 100
-  },
-  decoration: {
-    showGrid: true
-  }
-})
+  })
 
 
   // diagramFactory.createBarDiagram()

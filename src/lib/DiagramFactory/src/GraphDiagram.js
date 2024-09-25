@@ -128,7 +128,7 @@ class GraphDiagram extends Diagram {
     const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     xAxis.setAttribute('x1', axisPadding - 10)
     xAxis.setAttribute('y1', svgHeight - axisPadding + 20)
-    xAxis.setAttribute('x2', svgWidth - axisPadding - 10)
+    xAxis.setAttribute('x2', svgWidth)
     xAxis.setAttribute('y2', svgHeight - axisPadding + 20)
     xAxis.setAttribute('stroke', 'black')
     svg.appendChild(xAxis)

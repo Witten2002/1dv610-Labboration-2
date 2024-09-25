@@ -6,7 +6,7 @@
  */
 
 import '@testing-library/jest-dom'
-import { HorizontalBarDiagram } from '../src/lib/DiagramFactory/src/HorizontalBarDiagram.js'
+import { CircleDiagram } from '../src/lib/DiagramFactory/src/CircleDiagram.js'
 
 test('A bar should be rendered for each data object.', () => {
   document.body.innerHTML = '<svg id="svgDiagram" width="600" height="400"></svg>'
@@ -21,14 +21,14 @@ test('A bar should be rendered for each data object.', () => {
     { label: 'G', value: 130, color: 'cyan' }
   ]
 
-  const horizontalBarDiagram = new HorizontalBarDiagram({
+  const circleDiagram = new CircleDiagram({
     elementId: '#svgDiagram',
     data
   })
-  horizontalBarDiagram.render()
+  circleDiagram.render()
 
   const svg = document.querySelector('#svgDiagram')
-  const bars = svg.querySelectorAll('rect')
+  const bars = svg.querySelectorAll('path')
 
   expect(bars.length).toBe(data.length)
 })
@@ -46,18 +46,18 @@ test('A bar should be rendered for each data object with the correct color.', ()
     { label: 'G', value: 130, color: 'cyan' }
   ]
 
-  const horizontalBarDiagram = new HorizontalBarDiagram({
+  const circleDiagram = new CircleDiagram({
     elementId: '#svgDiagram',
     data
   })
-  horizontalBarDiagram.render()
+  circleDiagram.render()
 
   const svg = document.querySelector('#svgDiagram')
-  const bars = svg.querySelectorAll('rect')
+  const bars = svg.querySelectorAll('path')
 
   expect(bars.length).toBeGreaterThanOrEqual(data.length)
 
-  data.forEach((object, index) => {
-    expect(bars[index].getAttribute('fill')).toBe(object.color)
+  data.forEach((datum, index) => {
+    expect(bars[index].getAttribute('fill')).toBe(datum.color)
   })
 })

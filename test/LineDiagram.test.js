@@ -1,12 +1,12 @@
 /**
- * The automatic test for HorizontalBarDiagram.
+ * The automatic test for LineDiagram.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
  */
 
 import '@testing-library/jest-dom'
-import { HorizontalBarDiagram } from '../src/lib/DiagramFactory/src/HorizontalBarDiagram.js'
+import { LineDiagram } from '../src/lib/DiagramFactory/src/LineDiagram.js'
 
 test('A bar should be rendered for each data object.', () => {
   document.body.innerHTML = '<svg id="svgDiagram" width="600" height="400"></svg>'
@@ -21,16 +21,16 @@ test('A bar should be rendered for each data object.', () => {
     { label: 'G', value: 130, color: 'cyan' }
   ]
 
-  const horizontalBarDiagram = new HorizontalBarDiagram({
+  const lineDiagram = new LineDiagram({
     elementId: '#svgDiagram',
     data
   })
-  horizontalBarDiagram.render()
+  lineDiagram.render()
 
   const svg = document.querySelector('#svgDiagram')
-  const bars = svg.querySelectorAll('rect')
+  const cirles = svg.querySelectorAll('circle')
 
-  expect(bars.length).toBe(data.length)
+  expect(cirles.length).toBe(data.length)
 })
 
 test('A bar should be rendered for each data object with the correct color.', () => {
@@ -46,18 +46,18 @@ test('A bar should be rendered for each data object with the correct color.', ()
     { label: 'G', value: 130, color: 'cyan' }
   ]
 
-  const horizontalBarDiagram = new HorizontalBarDiagram({
+  const lineDiagram = new LineDiagram({
     elementId: '#svgDiagram',
     data
   })
-  horizontalBarDiagram.render()
+  lineDiagram.render()
 
   const svg = document.querySelector('#svgDiagram')
-  const bars = svg.querySelectorAll('rect')
+  const circle = svg.querySelectorAll('circle')
 
-  expect(bars.length).toBeGreaterThanOrEqual(data.length)
+  expect(circle.length).toBeGreaterThanOrEqual(data.length)
 
   data.forEach((object, index) => {
-    expect(bars[index].getAttribute('fill')).toBe(object.color)
+    expect(circle[index].getAttribute('fill')).toBe(data[0].color)
   })
 })

@@ -13,21 +13,19 @@ try {
       { label: 'G', value: 130, color: 'cyan' }
     ],
     interactivity: { // OPTIONAL
-      changeColor: { // OPTIONAL
-        expand: true // OPTIONAL
-      },
+      expand: true, // OPTIONAL,
       infoBoxWhenHover: true // OPTIONAL
-    },
-    animation: { // OPTIONAL
-      speed: 100 // OPTIONAL
-    },
-    decoration: { // OPTIONAL
-      showGrid: true // OPTIONAL
     }
+    // animation: { // OPTIONAL
+    //   speed: 100 // OPTIONAL
+    // },
+    // decoration: { // OPTIONAL
+    //   showGrid: false // OPTIONAL
+    // }
   })
   // diagramFactory.createBarDiagram()
-  diagramFactory.createLineDiagram()
-  // diagramFactory.createCircleDiagram()
+  // diagramFactory.createLineDiagram()
+  diagramFactory.createCircleDiagram()
 } catch (error) {
   console.error(error.message)
 }
