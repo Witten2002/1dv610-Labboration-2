@@ -76,6 +76,8 @@ class LineDiagram extends GraphDiagram {
       circle.setAttribute('r', 4)
       circle.setAttribute('fill', this.#dataObject.visualData[0].color)
 
+      svg.appendChild(circle)
+
       /* ---------------------- INTERACTIVITY ---------------------- */
       const interactivityAndAnimationSettings = {
         element: circle,
@@ -85,8 +87,6 @@ class LineDiagram extends GraphDiagram {
       }
       super.applyInteractivityAndAnimation(interactivityAndAnimationSettings)
       /* ----------------------------------------------------------- */
-
-      svg.appendChild(circle)
     }
   }
 }

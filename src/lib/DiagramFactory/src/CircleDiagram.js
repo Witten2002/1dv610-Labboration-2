@@ -36,11 +36,9 @@ class CircleDiagram extends Diagram {
     this.#calculateEachPercent(sum)
     this.#calculateEachAngle()
 
-    /*  -------------------------- ADD SETTER AND GETTER IN PARENT CLASS -------------------------- */
     const svg = super.getSvg()
     const svgHeight = super.getSvgHeight()
     const svgWidth = super.getSvgWidth()
-    /* -------------------------------------------------------------------------------------------- */
 
     const radius = Math.min(svgWidth, svgHeight) / 2 - 50
     const centerX = svgWidth / 2

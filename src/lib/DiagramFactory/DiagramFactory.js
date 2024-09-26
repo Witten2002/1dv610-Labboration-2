@@ -1,5 +1,5 @@
 /**
- * Represents a diagram factory.
+ * Represents The diagram factory.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
@@ -9,21 +9,21 @@ import { LineDiagram } from './src/LineDiagram.js'
 import { CircleDiagram } from './src/CircleDiagram.js'
 
 /**
- * A class representing a diagram.
+ * A class representing a diagram factory.
  */
 class DiagramFactory {
   #config
   /**
    * Creates an instance of DiagramFactory.
    *
-   * @param {object} config - The data that will be used to render the diagram.
+   * @param {object} config - The congig that will be used to render the diagram.
    */
   constructor (config) {
     this.#config = config
   }
 
   /**
-   * Creates the diagram.
+   * Render the HorizontalBarDiagram and place it in the DOM.
    */
   createBarDiagram () {
     try {
@@ -35,7 +35,7 @@ class DiagramFactory {
   }
 
   /**
-   * Creates the diagram.
+   * Render the LineDiagram and place it in the DOM.
    */
   createLineDiagram () {
     try {
@@ -47,7 +47,7 @@ class DiagramFactory {
   }
 
   /**
-   * Creates the diagram.
+   * Render the Circlediagram and place it in the DOM.
    */
   createCircleDiagram () {
     try {

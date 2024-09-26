@@ -96,7 +96,7 @@ The DiagramFactory library provides a range of configuration options that allow 
 ```
 
 ## Methods
-BarDiagram:
+BarDiagram
 ```javascript
 diagramFactory.createBarDiagram()
 ```
