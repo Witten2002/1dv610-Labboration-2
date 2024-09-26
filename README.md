@@ -95,6 +95,20 @@ The DiagramFactory library provides a range of configuration options that allow 
   })
 ```
 
+## Methods
+BarDiagram:
+```javascript
+diagramFactory.createBarDiagram()
+```
+LineDiagram
+```javascript
+diagramFactory.createLineDiagram()
+```
+CircleDiagram
+```javascript
+diagramFactory.createCircleDiagram()
+```
+
 ## Code example
 Here is an example of how to create a `bar` diagram with interactivity and animation using the DiagramFactory library:
 
@@ -153,10 +167,10 @@ For more information about Semantic Versioning, visit [SemVer.org](https://semve
 | BUG002 | The Labels does not fit good with the circle diagram when the space is to small | open | minor | Suggest resizing or using smaller labels |
 
 
-We welcome all users to submit issues for bug reports, feature requests, or general feedback. Please visit our [GitHub Issues page](https://github.com/your-repo/issues) to create a new issue or comment on an existing one.
+We welcome all users to submit issues for bug reports, feature requests, or general feedback. Please visit our [GitHub Issues page](https://github.com/Witten2002/1dv610-Labboration-2/issues) to create a new issue or comment on an existing one.
 
 Steps to submit an issue:
-1. Go to the [Issues page](https://github.com/your-repo/issues).
+1. Go to the [Issues page](https://github.com/Witten2002/1dv610-Labboration-2/issues).
 2. Click "New Issue."
 3. Provide a detailed description, steps to reproduce the issue, and any relevant screenshots or code snippets.
 
@@ -177,7 +191,7 @@ For more details on the coding standard, you can refer to the official LNU guide
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ## Acknowledgments
 The DiagramFactory library was developed as part of a project for the course "Web Development" at Linnaeus University. The project aimed to create a reusable library for generating interactive diagrams using SVG and JavaScript. The library was developed by Ludwig Wittenberg and is intended for educational purposes and as a learning resource for web developers.
