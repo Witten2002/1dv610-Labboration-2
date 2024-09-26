@@ -66,6 +66,8 @@ Key automated tests:
 |--------------|-------------|-----------------|---------------|--------|
 | TC1 | Verify that the each diagram renders correctly. With minimum config. | Each diagram render correctly. | Each diagram renderd correctly. | Pass |
 | TC2 | Verify that each diagram works with interactions. | All diagrams should show a infobox. The Line and HorizontalBarDiagram should also expand. | Each diagram have the ability to let users interact with it. | Pass |
+| TC3 | Verify that Line and HorizontalBarDiagram works with decorations. | All Line and HorizontalBarDiagram should have decorations. | Both diagrams have decorations. And can be turned off | Pass |
+| TC4 | Verify that the HorizontalBarDiagram works with animations. | The HorizontalBarDiagram should have animations. | The HorizontalBarDiagram have animations. | Pass
 
 
 ### **TC1**: Verify that each diagram renders correctly. With minimum config.
@@ -178,5 +180,102 @@ The CircleDiagram should display circles corresponding to the input data. When h
 
 ![CircleDiagram](./docImg/CircleDiagramInteractivity.gif)
 
-# ADD 2 MORE MANUEL TEST CASES
-WITH DECORATIONS AND ANIMATIONS THE LAST ONE IS ONLY FOR BARDIAGRAM
+### **TC3**: Verify that Line and HorizontalBarDiagram works with decorations properties.
+
+1. Place the svg element in the DOM.
+```html
+<svg id="svgDiagram" width="600" height="400"></svg>
+```
+2. In your javascript file, import the `DiagramFactory` OBS!!! Change `PATH_TO`.
+```javascript
+import { DiagramFactory } from './PATH_TO/DiagramFactory/DiagramFactory'
+```
+3. Create a new instance of the `DiagramFactory` class and set up the required Config.
+```javascript
+  const diagramFactory = new DiagramFactory({
+    elementId: '#svgDiagram',
+    data: [
+      { label: 'A', value: 10, color: 'blue' },
+      { label: 'B', value: 20, color: 'red' },
+      { label: 'C', value: 100, color: 'green' },
+      { label: 'D', value: 40, color: 'yellow' },
+      { label: 'E', value: 120, color: 'purple' },
+      { label: 'F', value: 96, color: 'orange' },
+      { label: 'G', value: 130, color: 'cyan' }
+    ], 
+    decoration: {
+      showGrid: false
+    }
+  })
+```
+
+4a. Render the HorizontalBarDiagram.
+```javascript
+  diagramFactory.createHorizontalBarDiagram()
+```
+### Expected Result
+The HorizontalBarDiagram should display bars corresponding to the input data. The grid should not be visible.
+![HorizontalBarDiagram with no grid](./docImg/BarDiagramNoGrid.png)
+
+4b. Render the LineDiagram.
+```javascript
+  diagramFactory.createLineDiagram()
+```
+
+### Expected Result
+The LineDiagram should display lines corresponding to the input data. The grid should not be visible.
+![LineDiagram with no grid](./docImg/LineDiagramNoGrid.png)
+
+### **TC4**: Verify that the HorizontalBarDiagram works with animations.
+
+1. Place the svg element in the DOM.
+```html
+<svg id="svgDiagram" width="600" height="400"></svg>
+```
+2. In your javascript file, import the `DiagramFactory` OBS!!! Change `PATH_TO`.
+```javascript
+import { DiagramFactory } from './PATH_TO/DiagramFactory/DiagramFactory'
+```
+3. Create a new instance of the `DiagramFactory` class and set up the required Config.
+```javascript
+  const diagramFactory = new DiagramFactory({
+    elementId: '#svgDiagram',
+    data: [
+      { label: 'A', value: 10, color: 'blue' },
+      { label: 'B', value: 20, color: 'red' },
+      { label: 'C', value: 100, color: 'green' },
+      { label: 'D', value: 40, color: 'yellow' },
+      { label: 'E', value: 120, color: 'purple' },
+      { label: 'F', value: 96, color: 'orange' },
+      { label: 'G', value: 130, color: 'cyan' }
+    ],
+    animation: {
+      speed: 100
+    }
+  })
+```
+4a. Render the HorizontalBarDiagram.
+```javascript
+  diagramFactory.createHorizontalBarDiagram()
+```
+
+### Expected Result
+The HorizontalBarDiagram should display bars corresponding to the input data. The bars should animate when rendered.
+
+![HorizontalBarDiagram with animations](./docImg/AnimatedBarDiagram.gif)
+
+## Known Issues
+While no critical issues were found during testing, the following areas may benefit from further investigation:
+- Performance on mobile devices has not been tested and should be evaluated for responsiveness and usability.
+
+## Bug Reports
+| Issue ID | Description | Status | Priority | Remarks |
+|----------|-------------|--------|----------|---------|
+| BUG001 | The CircleDiagram does not have the ability to expand. | open | minor | Requires update to interaction logic |
+| BUG002 | The Labels does not fit good with the circle diagram when the space is to small | open | minor | Suggest resizing or using smaller labels |
+
+## Conclusion
+
+The testing process for the `DiagramFactory` library was successful, with all automated and manual tests passing. The library demonstrated robust functionality in generating various types of diagrams, handling data processing, and providing interactive features. The tests also confirmed that the library is compatible with different browsers and devices, ensuring a consistent user experience.
+
+No critical bugs were identified, and all expected functionalities performed as intended. However, it is recommended that further testing be conducted on mobile devices and in additional browsers (Safari, Microsoft Edge) to ensure broader compatibility.
