@@ -12,16 +12,16 @@ try {
       { label: 'F', value: 96, color: 'orange' },
       { label: 'G', value: 130, color: 'cyan' }
     ],
-    // interactivity: { // OPTIONAL
-    //   expand: true, // OPTIONAL,
-    //   infoBoxWhenHover: true // OPTIONAL
-    // }
+    interactivity: { // OPTIONAL
+      expand: true, // OPTIONAL,
+      infoBoxWhenHover: true // OPTIONAL
+    },
     animation: { // OPTIONAL
       speed: 100 // OPTIONAL
+    },
+    decoration: { // OPTIONAL
+      showGrid: false // OPTIONAL
     }
-    // decoration: { // OPTIONAL
-    //   showGrid: false // OPTIONAL
-    // }
   })
   diagramFactory.createBarDiagram()
   // diagramFactory.createLineDiagram()

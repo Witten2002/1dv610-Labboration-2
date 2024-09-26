@@ -75,9 +75,9 @@ Key automated tests:
 ```html
 <svg id="svgDiagram" width="600" height="400"></svg>
 ```
-2. In your javascript file, import the `DiagramFactory` OBS!!! Change `PATH_TO`.
+2. In your javascript file, import the `DiagramFactory`.
 ```javascript
-import { DiagramFactory } from './PATH_TO/DiagramFactory/DiagramFactory'
+import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
 ```
 3. Create a new instance of the `DiagramFactory` class and set up the required Config.
 ```javascript
@@ -127,9 +127,9 @@ The CircleDiagram should display circles corresponding to the input data.
 ```html
 <svg id="svgDiagram" width="600" height="400"></svg>
 ```
-2. In your javascript file, import the `DiagramFactory` OBS!!! Change `PATH_TO`.
+2. In your javascript file, import the `DiagramFactory`.
 ```javascript
-import { DiagramFactory } from './PATH_TO/DiagramFactory/DiagramFactory'
+import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
 ```
 3. Create a new instance of the `DiagramFactory` class and set up the required Config.
 ```javascript
@@ -186,9 +186,9 @@ The CircleDiagram should display circles corresponding to the input data. When h
 ```html
 <svg id="svgDiagram" width="600" height="400"></svg>
 ```
-2. In your javascript file, import the `DiagramFactory` OBS!!! Change `PATH_TO`.
+2. In your javascript file, import the `DiagramFactory`.
 ```javascript
-import { DiagramFactory } from './PATH_TO/DiagramFactory/DiagramFactory'
+import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
 ```
 3. Create a new instance of the `DiagramFactory` class and set up the required Config.
 ```javascript
@@ -232,9 +232,9 @@ The LineDiagram should display lines corresponding to the input data. The grid s
 ```html
 <svg id="svgDiagram" width="600" height="400"></svg>
 ```
-2. In your javascript file, import the `DiagramFactory` OBS!!! Change `PATH_TO`.
+2. In your javascript file, import the `DiagramFactory`.
 ```javascript
-import { DiagramFactory } from './PATH_TO/DiagramFactory/DiagramFactory'
+import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
 ```
 3. Create a new instance of the `DiagramFactory` class and set up the required Config.
 ```javascript
@@ -268,7 +268,7 @@ The HorizontalBarDiagram should display bars corresponding to the input data. Th
 While no critical issues were found during testing, the following areas may benefit from further investigation:
 - Performance on mobile devices has not been tested and should be evaluated for responsiveness and usability.
 
-## Bug Reports
+## BugReports
 | Issue ID | Description | Status | Priority | Remarks |
 |----------|-------------|--------|----------|---------|
 | BUG001 | The CircleDiagram does not have the ability to expand. | open | minor | Requires update to interaction logic |
