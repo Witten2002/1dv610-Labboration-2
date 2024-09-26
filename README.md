@@ -1,21 +1,6 @@
 # DiagramFactory
 
-### [Description](#description)
-### [Installation](#installation)
-### [Setting up a config](#config)
-### [Code example](#example)
-### [Dependencies](#Dependencies)
-### [License](#license)
-### [Language](#language)
-### [Acknowledgments](#acknowledgments)
-### [Contributing](#contributing)
-### [Versioning](#versioning)
-### [Bugreports](#bugreports)
-### [Authors](#authors)
-### [TestRapport](#testrapport)
-
-
-## description
+## Description
 The DiagramFactory library is a tool designed to create dynamic and interactive diagrams based on user-provided data. It utilizes SVG (Scalable Vector Graphics) to render high-quality, scalable visualizations that maintain clarity and responsiveness across different screen sizes.
 
 The library supports a variety of diagram types, including:
@@ -26,7 +11,7 @@ The library supports a variety of diagram types, including:
 
 With its flexible configuration options, the DiagramFactory library allows developers to customize colors, labels, animations, and interactive elements, making it easy to tailor the diagrams to specific design and functional requirements. This makes it an ideal solution for integrating visually engaging data representations into web applications.
 
-## installation
+## Installation
 Download the DiagramFactory library from the GitHub repository and include it in your lib directory on the client. You need to add the following html element in your html file:
 ```html
   <svg id="svgDiagram" width="600" height="400"></svg>
@@ -65,7 +50,7 @@ If you want to create a bar diagram you can call the createBarDiagram method:
 ```javascript
 diagramFactory.createBarDiagram()
 ```
-## config
+## Setting up config
 The DiagramFactory library provides a range of configuration options that allow you to customize the appearance and behavior of the diagrams. The following properties can be included in the configuration object when creating a new instance of the DiagramFactory class:
 
 #### Required properties:
@@ -110,7 +95,7 @@ The DiagramFactory library provides a range of configuration options that allow 
   })
 ```
 
-## example
+## Code example
 Here is an example of how to create a `bar` diagram with interactivity and animation using the DiagramFactory library:
 
 ```html
@@ -144,10 +129,10 @@ Here is an example of how to create a `bar` diagram with interactivity and anima
 ## Dependencies
 This module primmarily relies on built-in browser features and the SVG (Scalable Vector Graphics) standard for rendering the diagrams. It does not have any external dependencies or require additional libraries to function.
 
-## language
+## Language
 The DiagramFactory library is written in `JavaScript` (ES6) and utilizes modern language features such as classes, arrow functions, and template literals. It is designed to be compatible with modern web browsers and can be easily integrated into web applications using ES6 modules.
 
-## version
+## Version
 The current version of the DiagramFactory library is `1.0.0`. Future updates and enhancements may be released to improve functionality, performance, and compatibility with different browsers and devices. In future versions, additional diagram types and customization options may be added to provide more flexibility and control over the visualizations.
 
 This project uses **Semantic Versioning**. Each version follows the format:
@@ -159,7 +144,7 @@ This project uses **Semantic Versioning**. Each version follows the format:
 For more information about Semantic Versioning, visit [SemVer.org](https://semver.org).
 
 
-## bugreports
+## Bugreports
 
 ### Known Issues
 | Issue ID | Description | Status | Priority | Remarks |
@@ -177,7 +162,7 @@ Steps to submit an issue:
 
 Make sure to check existing issues before submitting a new one!
 
-## contributing
+## Contributing
 We welcome contributions! If you'd like to contribute to this project, follow these steps:
 
 1. Go to the branch Contributions.
@@ -190,20 +175,16 @@ Please ensure all changes are tested before submitting.
 
 For more details on the coding standard, you can refer to the official LNU guidelines [here](https://www.npmjs.com/package/@lnu/eslint-config).
 
-## license
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## acknowledgments
+## Acknowledgments
 The DiagramFactory library was developed as part of a project for the course "Web Development" at Linnaeus University. The project aimed to create a reusable library for generating interactive diagrams using SVG and JavaScript. The library was developed by Ludwig Wittenberg and is intended for educational purposes and as a learning resource for web developers.
 
 ***After the course is ended the library will no longer be maintained and updated.***
 
-## authors
-- Ludwig Wittenberg
-  - [LinkedIn](https://se.linkedin.com/in/ludwig-wittenberg-a08043257)
-
-## testrapport
+## Testrapport
 The DiagramFactory library has been tested using a combination of manual and automated testing methods to ensure that the diagrams are rendered correctly and that the interactivity and animations function as expected. The automated tests are written using the Jest testing framework and cover a range of scenarios to validate the library's behavior under different conditions. The automated test check if the configuration object is valid and if the diagram is rendered correctly. The manual tests involve visual inspection of the diagrams to verify that they match the expected output based on the provided data and configuration.
 
 [Full TestRapport](./TestRapport.md)
