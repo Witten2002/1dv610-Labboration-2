@@ -4,7 +4,7 @@
 ### [Installation](#installation)
 ### [Setting up a config](#config)
 ### [Code example](#example)
-### [Dependencies](#dependencies)
+### [Dependencies](#Dependencies)
 ### [License](#license)
 ### [Language](#language)
 ### [Acknowledgments](#acknowledgments)
@@ -141,7 +141,7 @@ Here is an example of how to create a `bar` diagram with interactivity and anima
   diagramFactory.createBarDiagram()
 ```
 
-## dependencies
+## Dependencies
 This module primmarily relies on built-in browser features and the SVG (Scalable Vector Graphics) standard for rendering the diagrams. It does not have any external dependencies or require additional libraries to function.
 
 ## language
