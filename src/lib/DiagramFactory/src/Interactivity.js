@@ -32,7 +32,6 @@ class Interactivity {
     this.#originalHeight = parseInt(this.#element.getAttribute('height'))
     this.#originalWidth = parseInt(this.#element.getAttribute('width'))
 
-    // get the original position of the bars
     this.#originalX = parseInt(this.#element.getAttribute('x'))
     this.#originalY = parseInt(this.#element.getAttribute('y'))
     this.#orginalRadius = parseInt(this.#element.getAttribute('r'))

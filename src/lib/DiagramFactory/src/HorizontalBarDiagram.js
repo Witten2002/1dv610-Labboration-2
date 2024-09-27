@@ -36,7 +36,6 @@ class HorizontalBarDiagram extends GraphDiagram {
 
     const xCoodinates = []
 
-    // Loops through the data and render the bars
     const visualData = super.getVisualData()
     for (let i = 0; i < visualData.length; i++) {
       const barHeigth = (visualData[i].value / maxDataValue) * (svgHeight - 50)

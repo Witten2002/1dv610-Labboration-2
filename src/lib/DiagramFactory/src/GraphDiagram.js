@@ -1,5 +1,5 @@
 /**
- * A module representing a bar diagram.
+ * A module representing a the grap diagrams.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
@@ -141,7 +141,6 @@ class GraphDiagram extends Diagram {
     yAxis.setAttribute('stroke', 'black')
     svg.appendChild(yAxis)
 
-    // show axis values
     this.#showAxisValuesLines(svg, svgWidth, svgHeight, axisPadding)
   }
 }

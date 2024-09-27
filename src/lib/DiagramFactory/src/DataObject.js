@@ -1,12 +1,12 @@
 /**
- * This module concatinates the data that will be used to render the diagram.
+ * This module concatinates the config that will be used to render the diagram.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
  */
 
 /**
- * This creates the data that will be used to render the diagram.
+ * This creates the config that will be used to render the diagram.
  */
 class DataObject {
   #dataObject
@@ -22,9 +22,9 @@ class DataObject {
   #showGrid
   #svgWidth
   /**
-   * Creates an instance of CreateData. This will create and validate the data.
+   * Creates an instance of CreateData. This will create and validate the config.
    *
-   * @param {object} config - The data that will be used to render the diagram.
+   * @param {object} config - The config that will be used to render the diagram.
    */
   constructor (config) {
     this.#visualData = []
@@ -48,7 +48,7 @@ class DataObject {
   }
 
   /**
-   * Gets the svg heigt and sets it to a private field.
+   * Gets the svg width and sets it to a private field.
    */
   #setSvgWidth () {
     this.#svgWidth = this.#svg.getAttribute('width')
@@ -135,11 +135,13 @@ class DataObject {
   #setBarWidth () {
     const dataLength = this.#visualData.length
     const barSpacing = this.#barSpacing * dataLength
-    this.#barWidth = ((this.#svgWidth - barSpacing - 50) / (dataLength))
+    const PADDING = 50
+
+    this.#barWidth = ((this.#svgWidth - barSpacing - PADDING) / (dataLength))
   }
 
   /**
-   * Sets the animation.
+   * Sets the animation config.
    *
    * @param {object} animation - The animation that will be used to render the diagram.
    */

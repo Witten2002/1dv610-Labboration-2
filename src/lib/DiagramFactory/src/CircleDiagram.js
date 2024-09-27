@@ -97,7 +97,6 @@ class CircleDiagram extends Diagram {
     let yCoord = 10
 
     for (let i = 0; i < this.#visualData.length; i++) {
-      // add an color box top left
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
       rect.setAttribute('x', xCoord)
       rect.setAttribute('y', yCoord)
@@ -122,7 +121,6 @@ class CircleDiagram extends Diagram {
 
       svg.appendChild(textPercent)
 
-      // add thext to the color box
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
       text.setAttribute('x', xCoord * 6)
       text.setAttribute('y', yCoord + 8)
@@ -153,7 +151,7 @@ class CircleDiagram extends Diagram {
   }
 
   /**
-   * Calculates each angl.
+   * Calculates each angle.
    */
   #calculateEachAngle () {
     const TOTAL_ANGEL = 360

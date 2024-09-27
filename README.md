@@ -61,10 +61,10 @@ The DiagramFactory library provides a range of configuration options that allow 
   - `color`: A string representing the color of the data point. This can be a named color (e.g., 'red', 'blue', 'green').
 
 #### Optional properties:
-- `interactivity`
+- `interactivity`: **Currently not working with circleDiagrams.**
   - `expand`: A boolean value that determines whether the diagram elements should expand when hovered over. Default is `false`.
   - `infoBoxWhenHover`: A boolean value that determines whether an info box should be displayed when hovering over a diagram element. Default is `false`.
-- `animation`:
+- `animation`: **As things stand BarDiagram is the only diagram that can be animated.**
   - `speed`: A number representing the animation speed in milliseconds. Default is `100`.
 - `decoration`:
   - `showGrid`: A boolean value that determines whether a grid should be displayed in the background of the diagram. Default is `true`.

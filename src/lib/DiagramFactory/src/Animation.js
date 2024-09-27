@@ -1,5 +1,5 @@
 /**
- * A module to animate the bars of diagrams.
+ * A class to animate the diagrams.
  *
  * @author Ludwig Wittenberg <lw223cq@student.lnu.se>
  * @version 1.0.0
@@ -9,18 +9,18 @@
  * A class representing a diagram.
  */
 class Animation {
-  #rect
+  #element
   /**
    * Creates an instance of Animate.
    *
-   * @param {object} rect - The chart that will be used to render the diagram.
+   * @param {object} element - The chart that will be used to render the diagram.
    */
-  constructor (rect) {
-    this.#rect = rect
+  constructor (element) {
+    this.#element = element
   }
 
   /**
-   * Animates the bars.
+   * Animate the diagram.
    *
    * @param {object} config - The configuration of the animation.
    */
@@ -31,7 +31,7 @@ class Animation {
   }
 
   /**
-   * Animates the bars.
+   * Animates the each bar of the diagram.
    *
    * @param {number} finalHeight - The final height of the bar.
    * @param {number} finalY - The final y position of the bar.
@@ -39,7 +39,7 @@ class Animation {
    */
   #animateHorizontalBar (finalHeight, finalY, speed) {
     let currentHeight = 0
-    let currentY = parseInt(this.#rect.getAttribute('y')) + finalHeight
+    let currentY = parseInt(this.#element.getAttribute('y')) + finalHeight
 
     const SPEED = speed
     const increment = finalHeight / SPEED
@@ -52,12 +52,12 @@ class Animation {
       if (currentHeight < finalHeight) {
         currentHeight += increment
         currentY -= yIncrement
-        this.#rect.setAttribute('height', currentHeight)
-        this.#rect.setAttribute('y', currentY)
+        this.#element.setAttribute('height', currentHeight)
+        this.#element.setAttribute('y', currentY)
         requestAnimationFrame(animate)
       } else {
-        this.#rect.setAttribute('height', finalHeight)
-        this.#rect.setAttribute('y', finalY)
+        this.#element.setAttribute('height', finalHeight)
+        this.#element.setAttribute('y', finalY)
       }
     }
     requestAnimationFrame(animate)

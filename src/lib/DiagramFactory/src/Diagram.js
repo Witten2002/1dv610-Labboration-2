@@ -18,7 +18,7 @@ class Diagram {
   /**
    * Creates an instance of Diagram.
    *
-   * @param {object} config - The data that will be used to render the diagram.
+   * @param {object} config - The config that will be used to render the diagram.
    */
   constructor (config) {
     this.#setDataObject(config)
@@ -55,7 +55,7 @@ class Diagram {
   }
 
   /**
-   * Sets the heigt of the element.
+   * Sets the width of the element.
    *
    * @param {object} svg - Svg Element.
    */
@@ -64,7 +64,7 @@ class Diagram {
   }
 
   /**
-   * Gets the height of the SVG element.
+   * Gets the width of the SVG element.
    *
    * @returns {number} The height of the SVG element.
    */
