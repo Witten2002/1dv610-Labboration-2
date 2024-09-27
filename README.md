@@ -95,7 +95,7 @@ The DiagramFactory library provides a range of configuration options that allow 
   })
 ```
 
-## Methods
+## Usage
 BarDiagram
 ```javascript
 diagramFactory.createBarDiagram()
@@ -179,11 +179,10 @@ Make sure to check existing issues before submitting a new one!
 ## Contributing
 We welcome contributions! If you'd like to contribute to this project, follow these steps:
 
-1. Go to the branch Contributions.
-2. Fork the repository.
-3. Create a new branch (e.g., `feature/new-feature`).
-4. Make your changes and commit them.
-5. Submit a pull request to the `main` branch.
+1. Fork the repository.
+2. Create a new branch (e.g., `feature/new-feature`).
+3. Make your changes and commit them.
+4. Submit a pull request to the `main` branch.
 
 Please ensure all changes are tested before submitting.
 
