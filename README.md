@@ -71,8 +71,6 @@ The DiagramFactory library provides a range of configuration options that allow 
 
   Example of a configuration object with optional properties:
 ```javascript
-  import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
-
   const diagramFactory = new DiagramFactory({
     elementId: '#svgDiagram',
     data: [
@@ -124,6 +122,8 @@ Here is an example of how to create a `bar` diagram with interactivity and anima
 ```
 
 ```javascript
+  import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
+
   const diagramFactory = new DiagramFactory({
     elementId: '#svgDiagram',
     data: [
