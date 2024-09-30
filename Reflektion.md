@@ -28,17 +28,17 @@ Det är mycket som jag tycker är intressant i detta kapitel. Att funktionerna s
 
 Efter att ha läst kapitel 2 och 3 i Clean Code och deltagit i föreläsningarna har jag reflekterat över hur jag tidigare skrivit kod och vilka förbättringar jag nu ser potentialen för. Mycket av det jag har lärt mig bekräftar hur jag redan jobbar, men jag har också identifierat områden där jag kan utvecklas.
 
-Namngivning – Intention-Revealing Names:
+#### Namngivning – Intention-Revealing Names:
 Väldigt logiskt för att förenkla koden samt öka kodförståelsen. Jag tycker att jag är duktig på just detta, jag tycker att jag använder bra och förklarande namn på funktioner, metoder och variabler. I min kod har jag ett bland annat ett fält som heter `#visualData`. Detta fält symboliserar den data som visas för användarna (value, label, color). Detta fält återfinns i många av filerna med exakt samma namn. Detta skapar en konsekvent och intention-revealing namngivning, vilket ökar kodförståelsen.
 
-Magic Numbers – Undvik dem:
+#### Magic Numbers – Undvik dem:
 Detta är så sant! Det blir så mycket enklare att läsa och kodförståelsen blir så mycket högre vi inte använder oss utav magiska nummer. Det finns ställen där jag har använt mig av magiska nummer men det är för att räkna ut olika storlekar.Jag har försökt ersätta de magiska nummer som används i if-satser. I min kod skapar jag 5 rows. De är antalet rows som syns i bakrunden utav diagrammet när. Nu när jag har döpt ett fält till `NUM_OF_LINES` och tilldelat det värdet 5 blir det mycket enklare och logiskt att läsa antalet rader som skapas. Innan den variablen såg vi bara att denna for loopen kördes 5 gånger och inte vad for loopen gör. Mycket bra!
 
-Command Query Separation – Nytt tänkesätt:
+#### Command Query Separation – Nytt tänkesätt:
 Ett av de mest intressanta koncepten jag har lärt mig är Command Query Separation. Tidigare hade jag en tendens att kombinera funktioner som både ändrade systemets tillstånd och returnerade ett resultat. Ett exempel på detta är när jag både skapade ett diagram och returnerade det i samma metod. När vi inte jobbar med detta sätt är det enkelt att råka få sidoeffekter. En sådan sido effekt kan vara att något returneras när vi vill ändra något. Det är då bättre att bygga om en metod så den endast sätter värdet till ett privat fält därefter har vi en annan metod vars uppgift är att returnera värdet på det privata fältet.
 
 
-Small Functions och Do One Thing:
+#### Small Functions och Do One Thing:
 Jag håller delvis med om detta. Metoderna ska vara små då det ökar kodförståelsen. Men 2-4 rader som boken säger tycker jag är extremt kort. Jag kollade i boken kod exempel s.50 - 52. I exemplet har författaren skrivit 2 - 4 rader i varje metod. Detta tycker jag gör koden mycket mer svårläst än om författaren hade slagit ihop vissa metoder med varandra. När jag läste exemplet så hade jag svårt att hänga med för att varje metod anropade minst en annan metod. Denna metoden anropade sedan en annan metod. Jag tycker att detta blir väldigt svårläst och komplext. Visst han kanske visar extremfall men huvudfokuset borde ändå vara att göra det enklare att förstå vad vi läser/skriver.
 
 Viss kommentarer minskas när koden är mer självdokumenterande. Visst metoderna ska vara små och man ska bryta ut vissa delar till egna metoder OM det gör koden mer lättläst. Ex jag hittar max värdet i en array, denna har jag brytit ut och skapat en egen metod för att göra koden enklare. Do one thing tycker jag låter väligt klokt, då ökar kodförståelsen och vi får inga sidoeffekter. Som jag nände tidigare så har jag en metod vars uppgift är att hitta det högsta värdet i en array. 
@@ -46,8 +46,8 @@ Viss kommentarer minskas när koden är mer självdokumenterande. Visst metodern
 
 Efter att ha reflekterat  över detta kommer jag inte jobba enligt bokens underrubrik small. Jag kommer fortsätta att jobba och skriva kod som jag gör nu, däremot ska jag försöka bryta ut vissa delar vilket gör att metoden blir kortare och do one thing.
 
-Make Meaningful Distinctions:
+#### Make Meaningful Distinctions:
 Något som jag haft lite problem med tidigare är Make Meaningful Distinctions. När jag utvecklade en app i somras, där användaren skulle gissa tre ord, använde jag namn som wordOne, wordTwo och wordThree för variablerna. Dessa namn är inte särskilt beskrivande, och jag borde ha döpt dem till något som bättre förklarade vad de representerade. Detta är något jag kommer att tänka mer på framöver för att öka kodförståelsen och minska risken för förvirring.
 
-Function Arguments:
-Något jag inte håller med om helt är principen kring function arguments. Jag tycker att det är okej att skicka ett eller två argument till en metod. När det blir fler än två argument håller jag med om att det är bättre att skapa ett objekt och skicka med det istället. Jag har redan delvis implementerat detta i min kod, men det finns några metoder där jag fortfarande skickar fler än två argument. Det är något jag kommer att förbättra framöver.
+#### Function Arguments:
+Något jag inte håller med om helt är principen kring function arguments. Jag tycker att det är okej att skicka ett eller två argument till en metod. När det blir fler än två argument håller jag med om att det är bättre att skapa ett objekt och skicka med det istället. Jag ser både för och nackdelar med detta sätt att hantera agrument. Jag har redan delvis implementerat detta i min kod, men det finns några metoder där jag fortfarande skickar fler än två argument. Det är något jag kommer att förbättra framöver.
