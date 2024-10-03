@@ -30,6 +30,7 @@ class CircleDiagram extends Diagram {
 
   /**
    * The render method that creates the Diagram.
+   * !!! COPILOT HELPT ME WITH THE CALCULATION !!!
    */
   render () {
     const sum = this.#calculateSum()

@@ -12,7 +12,8 @@
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0",
     "test": "npx --node-options=--experimental-vm-modules jest || exit 0",
-    "test:only": "npx --node-options=--experimental-vm-modules jest -t"
+    "test:only": "npx --node-options=--experimental-vm-modules jest -t",
+    "test:coverage": "npx --node-options=--experimental-vm-modules jest --coverage || exit 0"
   },
   "contributors": [
     "Ludwig Wittenberg <lw223cq@student.lnu.se>"
