@@ -67,7 +67,7 @@ For manual testing, a series of test cases were designed to evaluate the user ex
 To start the manual testing process, the following steps were taken:
 1. clone the repository to a local environment.
 2. run npm install to install all dependencies.
-3. write npm start to start the development server.
+3. write npm run dev to start the development server.
 4. Open the browser and navigate to the local server.
 5. Start testing the DiagramFactory library with the following test cases.
 
