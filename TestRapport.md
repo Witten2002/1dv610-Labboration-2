@@ -62,207 +62,33 @@ Key automated tests:
 
 ### Manual Test Cases
 
-| Test Case ID | Description | Expected Result | Actual Result | Status |
-|--------------|-------------|-----------------|---------------|--------|
-| TC1 | Verify that the each diagram renders correctly. With minimum config. | Each diagram render correctly. | Each diagram renderd correctly. | Pass |
-| TC2 | Verify that each diagram works with interactions. | All diagrams should show a infobox. The Line and HorizontalBarDiagram should also expand. | Each diagram have the ability to let users interact with it. | Pass |
-| TC3 | Verify that Line and HorizontalBarDiagram works with decorations. | All Line and HorizontalBarDiagram should have decorations. | Both diagrams have decorations. And can be turned off | Pass |
-| TC4 | Verify that the HorizontalBarDiagram works with animations. | The HorizontalBarDiagram should have animations. | The HorizontalBarDiagram have animations. | Pass
+For manual testing, a series of test cases were designed to evaluate the user experience and interaction with the DiagramFactory library. These tests focused on visual appearance and interactivity features of the diagrams.
 
+To start the manual testing process, the following steps were taken:
+1. clone the repository to a local environment.
+2. run npm install to install all dependencies.
+3. write npm start to start the development server.
+4. Open the browser and navigate to the local server.
+5. Start testing the DiagramFactory library with the following test cases.
 
-### **TC1**: Verify that each diagram renders correctly. With minimum config.
-1. Place the svg element in the DOM.
-```html
-<svg id="svgDiagram" width="600" height="400"></svg>
-```
-2. In your javascript file, import the `DiagramFactory`.
-```javascript
-import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
-```
-3. Create a new instance of the `DiagramFactory` class and set up the required Config.
-```javascript
-  const diagramFactory = new DiagramFactory({
-    elementId: '#svgDiagram',
-    data: [
-      { label: 'A', value: 10, color: 'blue' },
-      { label: 'B', value: 20, color: 'red' },
-      { label: 'C', value: 100, color: 'green' },
-      { label: 'D', value: 40, color: 'yellow' },
-      { label: 'E', value: 120, color: 'purple' },
-      { label: 'F', value: 96, color: 'orange' },
-      { label: 'G', value: 130, color: 'cyan' }
-    ]
-  })
-```
-4a. Render the HorizontalBarDiagram.
-```javascript
-  diagramFactory.createHorizontalBarDiagram()
-```
-### Expected Result
-The HorizontalBarDiagram should display bars corresponding to the input data.
-
-![A HorizontalBarDiagram](./docImg/HorizontalBarDiagram.png)
-
-4b. Render the LineDiagram.
-```javascript
-  diagramFactory.createLineDiagram()
-```
-### Expected Result
-The LineDiagram should display lines corresponding to the input data.
-
-![LineDiagram](./docImg/LineDiagram.png)
-
-4c. Render the CircleDiagram.
-```javascript
-  diagramFactory.createCircleDiagram()
-```
-### Expected Result
-The CircleDiagram should display circles corresponding to the input data.
-
-![CircleDiagram](./docImg/CircleDiagram.png)
-
-### **TC2**: Verify that each diagram works with interactions.
-
-1. Place the svg element in the DOM.
-```html
-<svg id="svgDiagram" width="600" height="400"></svg>
-```
-2. In your javascript file, import the `DiagramFactory`.
-```javascript
-import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
-```
-3. Create a new instance of the `DiagramFactory` class and set up the required Config.
-```javascript
-  const diagramFactory = new DiagramFactory({
-    elementId: '#svgDiagram',
-    data: [
-      { label: 'A', value: 10, color: 'blue' },
-      { label: 'B', value: 20, color: 'red' },
-      { label: 'C', value: 100, color: 'green' },
-      { label: 'D', value: 40, color: 'yellow' },
-      { label: 'E', value: 120, color: 'purple' },
-      { label: 'F', value: 96, color: 'orange' },
-      { label: 'G', value: 130, color: 'cyan' }
-    ], 
-    interactive: {
-      showInfoBox: true,
-      expand: true
-    }
-  })
-```
-
-4a. Render the HorizontalBarDiagram.
-```javascript
-  diagramFactory.createHorizontalBarDiagram()
-```
-### Expected Result
-The HorizontalBarDiagram should display bars corresponding to the input data. When hovering over a bar, an info box should appear with the data value. The bar should expand when hover.
-
-![A HorizontalBarDiagram](./docImg/HorizontalBarDiagramInteractivity.gif)
-
-4b. Render the LineDiagram.
-```javascript
-  diagramFactory.createLineDiagram()
-```
-
-### Expected Result
-The LineDiagram should display lines corresponding to the input data. When hovering over a circle, an info box should appear with the data value. The circle should expand when hover.
-
-![LineDiagram](./docImg/LineDiagramInteractivity.gif)
-
-4c. Render the CircleDiagram.
-```javascript
-  diagramFactory.createCircleDiagram()
-```
-
-### Expected Result
-The CircleDiagram should display circles corresponding to the input data. When hovering over a circle, an info box should appear with the data value.
-
-![CircleDiagram](./docImg/CircleDiagramInteractivity.gif)
-
-### **TC3**: Verify that Line and HorizontalBarDiagram works with decorations properties.
-
-1. Place the svg element in the DOM.
-```html
-<svg id="svgDiagram" width="600" height="400"></svg>
-```
-2. In your javascript file, import the `DiagramFactory`.
-```javascript
-import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
-```
-3. Create a new instance of the `DiagramFactory` class and set up the required Config.
-```javascript
-  const diagramFactory = new DiagramFactory({
-    elementId: '#svgDiagram',
-    data: [
-      { label: 'A', value: 10, color: 'blue' },
-      { label: 'B', value: 20, color: 'red' },
-      { label: 'C', value: 100, color: 'green' },
-      { label: 'D', value: 40, color: 'yellow' },
-      { label: 'E', value: 120, color: 'purple' },
-      { label: 'F', value: 96, color: 'orange' },
-      { label: 'G', value: 130, color: 'cyan' }
-    ], 
-    decoration: {
-      showGrid: false
-    }
-  })
-```
-
-4a. Render the HorizontalBarDiagram.
-```javascript
-  diagramFactory.createHorizontalBarDiagram()
-```
-### Expected Result
-The HorizontalBarDiagram should display bars corresponding to the input data. The grid should not be visible.
-![HorizontalBarDiagram with no grid](./docImg/BarDiagramNoGrid.png)
-
-4b. Render the LineDiagram.
-```javascript
-  diagramFactory.createLineDiagram()
-```
-
-### Expected Result
-The LineDiagram should display lines corresponding to the input data. The grid should not be visible.
-![LineDiagram with no grid](./docImg/LineDiagramNoGrid.png)
-
-### **TC4**: Verify that the HorizontalBarDiagram works with animations.
-
-1. Place the svg element in the DOM.
-```html
-<svg id="svgDiagram" width="600" height="400"></svg>
-```
-2. In your javascript file, import the `DiagramFactory`.
-```javascript
-import { DiagramFactory } from './lib/DiagramFactory/DiagramFactory'
-```
-3. Create a new instance of the `DiagramFactory` class and set up the required Config.
-```javascript
-  const diagramFactory = new DiagramFactory({
-    elementId: '#svgDiagram',
-    data: [
-      { label: 'A', value: 10, color: 'blue' },
-      { label: 'B', value: 20, color: 'red' },
-      { label: 'C', value: 100, color: 'green' },
-      { label: 'D', value: 40, color: 'yellow' },
-      { label: 'E', value: 120, color: 'purple' },
-      { label: 'F', value: 96, color: 'orange' },
-      { label: 'G', value: 130, color: 'cyan' }
-    ],
-    animation: {
-      speed: 100
-    }
-  })
-```
-4a. Render the HorizontalBarDiagram.
-```javascript
-  diagramFactory.createHorizontalBarDiagram()
-```
-
-### Expected Result
-The HorizontalBarDiagram should display bars corresponding to the input data. The bars should animate when rendered.
-
-![HorizontalBarDiagram with animations](./docImg/AnimatedBarDiagram.gif)
+| Test Case ID | Type | Name | Description | Expected Result | Status |
+|--------------|------|------|-------------|-----------------|--------|
+| TC1.1 | Bar | Test Number of bars | Calculate the number of bars in the diagram. | The number of bars should be 7 | PASS |
+| TC1.2 | Bar | Test Each Label | Check if each label exist and if it is correct. | All labels exist and should be in the correct order: A,B,C,D,E,F,G | PASS |
+| TC1.3 | Bar | Test Value | Check if each value is correct. You can either check the value by the grid or by hovering over the bar and wait for a second. | All values should be in the correct order: 96,80,40,100,130,120,60 | PASS |
+| TC1.4 | Bar | Test Color | Check if each color is correct. | All colors exist and should be in the correct order: purple,yellow,green,blue,orange,pink,brown | PASS |
+| TC1.5 | Bar | Test Animation | Reload the site and check if bars will be animated from bottom to top. | The bars should be animated bottom to top. | PASS |
+| TC1.6 | Bar | Test Interactivity | Hover over a bar. Wait for a second. Controll if the bar gets bigger and a box appears with the correct label and value. When not hovering over check if the box been removed and bars is back to orginal size. | The bars gets bigger when hovering over and a box appears with the correct data. The box and bars should get back to the orginal state. Labels should be A,B,C,D,E,F,G Value should be: 96,80,40,100,130,120,60 | PASS |
+| TC2.1 | Line | Test Number of points | Calculate the number of points in the diagram. | The number of points should be 7 | PASS |
+| TC2.2 | Line | Test Each Label | Check if each label exist and if it is correct. | All labels exist and should be in the correct order: A,B,C,D,E,F,G | PASS |
+| TC2.3 | Line | Test Value | Check if each value is correct. You can either check the value by the grid or by hovering over the a point and wait for a second. | All values should be in the correct order: 96,80,40,100,130,120,60 | PASS |
+| TC2.4 | Line | Test Color | Check if one color is in the diagram | One colors exist and should be: purple | PASS |
+| TC2.5 | Line | Test Interactivity | Hover over a point. Wait for a second. Controll if the point gets bigger and a box appears with the correct label and value. When not hovering over check if the box been removed and point is back to orginal size. | The point gets bigger when hovering over and a box appears with the correct data. The box should disappear and the point should get back to the orginal size. Labels should be A,B,C,D,E,F,G Value should be: 96,80,40,100,130,120,60 | PASS |
+| TC3.1 | Circle | Test Number of paths | Calculate the number of paths in the diagram. | The number of paths should be 7 | PASS |
+| TC3.2 | Circle | Test Each Label | Check if each label exist and if it is correct. | All labels exist and should be in the correct order: A,B,C,D,E,F,G | PASS |
+| TC3.3 | Circle | Test Value | Check if each value is correct. Hover over a path to se what the value is. | All values should exist: 96,80,40,100,130,120,60 | PASS |
+| TC3.4 | Circle | Test Color | Check if each color is correct. | All colors exist: purple,yellow,green,blue,orange,pink,brown | PASS |
+| TC3.5 | Circle | Test Interactivity | Hover over a path. Wait for a second. Controll if a box appears with the correct label and value. When not hovering over check if the box has been removed. | A box appears with the correct data. The box should disappear when not hovering over the path. Labels should be A,B,C,D,E,F,G Value should be: 96,80,40,100,130,120,60 | PASS |
 
 ## Known Issues
 While no critical issues were found during testing, the following areas may benefit from further investigation:

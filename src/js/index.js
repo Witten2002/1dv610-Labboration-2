@@ -1,31 +1,12 @@
-import { DiagramFactory } from '../lib/DiagramFactory/DiagramFactory'
+import { TestBarDiagram } from './test/BarDiagram/BarDiagram.test.js'
+import { TestLineDiagram } from './test/LineDiagram/LineDiagram.test.js'
+import { TestCircleDiagram } from './test/CircleDiagram/CircleDiagram.test.js'
 
-try {
-  const diagramFactory = new DiagramFactory({
-    elementId: '#svgDiagram', // REQUIRED
-    data: [ // REQUIRED
-      { label: 'A', value: 10, color: 'blue' },
-      { label: 'B', value: 20, color: 'red' },
-      { label: 'C', value: 100, color: 'green' },
-      { label: 'D', value: 40, color: 'yellow' },
-      { label: 'E', value: 120, color: 'purple' },
-      { label: 'F', value: 96, color: 'orange' },
-      { label: 'G', value: 130, color: 'cyan' }
-    ],
-    interactivity: { // OPTIONAL
-      expand: true, // OPTIONAL,
-      infoBoxWhenHover: true // OPTIONAL
-    },
-    animation: { // OPTIONAL
-      speed: 100 // OPTIONAL
-    },
-    decoration: { // OPTIONAL
-      showGrid: false // OPTIONAL
-    }
-  })
-  diagramFactory.createBarDiagram()
-  // diagramFactory.createLineDiagram()
-  // diagramFactory.createCircleDiagram()
-} catch (error) {
-  console.error(error.message)
-}
+const testBarDiagram = new TestBarDiagram()
+testBarDiagram.startTest()
+
+const testLineDiagram = new TestLineDiagram()
+testLineDiagram.startTest()
+
+const testCircleDiagram = new TestCircleDiagram()
+testCircleDiagram.startTest()
